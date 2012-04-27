@@ -28,13 +28,13 @@
     <dependency>
 		  <groupId>jboss</groupId>
 		  <artifactId>jboss-system</artifactId>
-		  <version>${jboss.version}</version>
+		  <version>${jboss4.version}</version>
 		  <scope>provided</scope>
     </dependency>    
     <dependency>
 		  <groupId>jboss</groupId>
 		  <artifactId>jboss-jmx</artifactId>
-		  <version>${jboss.version}</version>
+		  <version>${jboss4.version}</version>
 		  <scope>provided</scope>
     </dependency>    
 	</dependencies>

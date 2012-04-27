@@ -185,6 +185,9 @@
 		</profile>
 		<profile>			
 			<id>release</id>
+			<properties>				
+				<jboss4.version>4.2.3.GA</jboss4.version>
+			</properties>	
 			<modules>								
 				<module>management/sip-servlets-management</module>
 				<module>sip-servlets-examples</module>
