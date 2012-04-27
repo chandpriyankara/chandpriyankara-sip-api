@@ -32,7 +32,7 @@
 	<properties>	
 		<mms.version>1.0.3.GA</mms.version>	
 		<!-- dependency versions -->
-		<jboss.version>4.2.3.GA</jboss.version>
+		<jboss.version>5.1.0.GA</jboss.version>
 		<javassist.version>3.6.0.GA</javassist.version>
 		<jboss-cache.version>1.4.1.SP3</jboss-cache.version>
 		<commons-pool.version>1.4</commons-pool.version>

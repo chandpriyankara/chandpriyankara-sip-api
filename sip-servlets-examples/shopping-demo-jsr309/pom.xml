@@ -10,6 +10,18 @@
 	<packaging>pom</packaging>
 	<name>Shopping Demo Parent</name>
 	<url>http://www.mobicents.org/shopping-demo-jsr309.html</url>
+	
+	<properties>	
+		<lucene-core.version>2.2.0</lucene-core.version>
+		<hibernate-core.version>3.2.6.ga</hibernate-core.version>
+		<hibernate-tools.version>3.2.0.ga</hibernate-tools.version>
+		<hibernate-annotations.version>3.3.0.ga</hibernate-annotations.version>
+		<hibernate-common-annotations.version>3.0.0.ga</hibernate-common-annotations.version>
+		<hibernate-entitymanager.version>3.3.1.ga</hibernate-entitymanager.version>
+		<hibernate-search.version>3.0.1.GA</hibernate-search.version>	
+		<hibernate-validator.version>3.0.0.ga</hibernate-validator.version>	
+	</properties>	
+
 	<modules>
 		<module>business</module>
 		<module>web</module>
