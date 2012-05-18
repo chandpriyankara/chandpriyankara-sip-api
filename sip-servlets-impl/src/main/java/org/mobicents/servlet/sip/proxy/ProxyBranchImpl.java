@@ -303,7 +303,7 @@ public class ProxyBranchImpl implements MobicentsProxyBranch, Externalizable {
 					}
 				}
 			}
-			return outgoingRequest;
+			return null;
 		} else {
 			return outgoingRequest;
 		}		
