@@ -91,7 +91,7 @@
 		<mobicents.tools.mavenplugin.eclipse.version>1.0.0.FINAL</mobicents.tools.mavenplugin.eclipse.version>
 		<mobicents.cluster.version>6.1.0.GA-TelScale</mobicents.cluster.version>
 		<mobicents.balancer.version>6.1.1-TelScale-SNAPSHOT</mobicents.balancer.version>
-		<mobicents.jain.sip.ha.version>6.1.0.GA-TelScale</mobicents.jain.sip.ha.version>
+		<mobicents.jain.sip.ha.version>6.1.1-TelScale-SNAPSHOT</mobicents.jain.sip.ha.version>
 		<mobicents.jain.sip.ext.version>6.1.0.GA-TelScale</mobicents.jain.sip.ext.version>		
 	</properties>
 	
@@ -290,7 +290,7 @@
 				<module>containers/tomcat-7</module>
 			</modules>
 			<properties>
-				<tomcat-7.version>7.0.26</tomcat-7.version>
+				<tomcat-7.version>7.0.27</tomcat-7.version>
 			</properties>	
 			<dependencies>
 				<!-- j2ee dependencies -->
@@ -309,7 +309,7 @@
 				<module>containers/tomcat-7</module>
 			</modules>
 			<properties>
-				<tomcat-7.version>7.0.26</tomcat-7.version>
+				<tomcat-7.version>7.0.27</tomcat-7.version>
 			</properties>	
 			<dependencies>
 				<!-- j2ee dependencies -->
