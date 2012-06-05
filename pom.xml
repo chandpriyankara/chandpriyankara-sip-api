@@ -89,10 +89,10 @@
 	
 	<properties>
 		<mobicents.tools.mavenplugin.eclipse.version>1.0.0.FINAL</mobicents.tools.mavenplugin.eclipse.version>
-		<mobicents.cluster.version>6.1.0.GA-TelScale</mobicents.cluster.version>
+		<mobicents.cluster.version>6.1.1-TelScale-SNAPSHOT</mobicents.cluster.version>
 		<mobicents.balancer.version>6.1.1-TelScale-SNAPSHOT</mobicents.balancer.version>
 		<mobicents.jain.sip.ha.version>6.1.1-TelScale-SNAPSHOT</mobicents.jain.sip.ha.version>
-		<mobicents.jain.sip.ext.version>6.1.0.GA-TelScale</mobicents.jain.sip.ext.version>		
+		<mobicents.jain.sip.ext.version>6.1.1-TelScale-SNAPSHOT</mobicents.jain.sip.ext.version>		
 	</properties>
 	
 	<dependencies>
@@ -353,6 +353,32 @@
 	</profiles>
 	<!-- repositories -->
 	<repositories>
+		 <repository>
+		  <id>telscale-releases-repository</id>
+		  <name>TelScale Releases Repository</name>
+		  <url>http://telestax.artifactoryonline.com/telestax/releases</url>
+		  <releases>
+		    <enabled>true</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </releases>
+		  <snapshots>
+		    <enabled>false</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </snapshots>		  		  
+		</repository>
+		<repository>
+		  <id>telscale-snapshots-repository</id>
+		  <name>TelScale Snapshots Repository</name>
+		  <url>http://telestax.artifactoryonline.com/telestax/snapshots</url>
+		  <releases>
+		    <enabled>false</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </releases>
+		  <snapshots>
+		    <enabled>true</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </snapshots>		  		  
+		</repository>
 		<repository>
 			  <id>mobicents-public-repository-group</id>
 			  <name>Mobicens Public Maven Repository Group</name>
