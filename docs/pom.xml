@@ -23,10 +23,8 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<modules>
-				<module>sources-mobicents</module>
-				<module>sources-telscale</module>
-				<module>jdocbook-mobicents</module>
+			<modules>				
+				<module>sources-telscale</module>				
 				<module>jdocbook-telscale</module>
 			</modules>
 		</profile>
