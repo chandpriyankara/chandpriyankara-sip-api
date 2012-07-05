@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.deployers;
+package org.jboss.web.tomcat.service.deployers.sip;
 
 import org.jboss.deployers.spi.DeploymentException;
 import org.jboss.deployers.structure.spi.DeploymentUnit;
@@ -29,6 +29,7 @@ import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.jboss.PassivationConfig;
 import org.jboss.metadata.web.jboss.ReplicationConfig;
 import org.jboss.metadata.web.jboss.ReplicationGranularity;
+import org.jboss.web.tomcat.service.deployers.ClusteringDefaultsDeployer;
 
 /**
  * @author jean.deruelle@gmail.com
