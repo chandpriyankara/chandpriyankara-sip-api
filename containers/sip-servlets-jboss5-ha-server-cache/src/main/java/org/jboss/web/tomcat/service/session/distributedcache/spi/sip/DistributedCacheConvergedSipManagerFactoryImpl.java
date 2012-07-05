@@ -20,17 +20,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.spi;
+package org.jboss.web.tomcat.service.session.distributedcache.spi.sip;
 
 import org.jboss.metadata.web.jboss.ReplicationGranularity;
 import org.jboss.web.tomcat.service.session.distributedcache.impl.DistributedCacheManagerFactoryImpl;
-import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.AttributeBasedJBossCacheConvergedSipService;
-import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.AttributeBasedJBossCacheService;
-import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.FieldBasedJBossCacheConvergedSipService;
-import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.FieldBasedJBossCacheService;
-import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.SessionBasedJBossCacheConvergedSipService;
-import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.SessionBasedJBossCacheService;
 import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.Util;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.sip.AttributeBasedJBossCacheConvergedSipService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.sip.FieldBasedJBossCacheConvergedSipService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.sip.SessionBasedJBossCacheConvergedSipService;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.ClusteringNotSupportedException;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributedCacheManager;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributableSessionManager;
 
 /**
  * @author jean.deruelle@gmail.com

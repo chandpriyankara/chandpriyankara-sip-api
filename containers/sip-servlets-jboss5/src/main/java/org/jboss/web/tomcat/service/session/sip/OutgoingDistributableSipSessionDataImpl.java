@@ -23,8 +23,8 @@
 package org.jboss.web.tomcat.service.session.sip;
 
 import org.jboss.web.tomcat.service.session.OutgoingDistributableSessionDataImpl;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributableSipSessionMetadata;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSipSessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributableSipSessionMetadata;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.OutgoingDistributableSipSessionData;
 import org.mobicents.servlet.sip.core.session.SipApplicationSessionKey;
 import org.mobicents.servlet.sip.core.session.SipSessionKey;
 

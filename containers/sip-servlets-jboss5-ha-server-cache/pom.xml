@@ -51,7 +51,16 @@
 			<groupId>org.jboss.cache</groupId>
 			<artifactId>jbosscache-pojo</artifactId>
 			<version>3.0.0.GA</version>			
-		</dependency>															
+		</dependency>	
+		
+		<dependency>
+			<groupId>com.redhat.jbcp</groupId>
+			<artifactId>jbossweb-5-exposed-common-lib</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jbossweb-5-exposed-common-lib-1.0.jar</systemPath>
+			<optional>true</optional>
+		</dependency>																
 	</dependencies>
 		
 	<build>

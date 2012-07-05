@@ -25,8 +25,8 @@ package org.jboss.web.tomcat.service.session.sip;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributableSipSessionMetadata;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingSessionGranularitySessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributableSipSessionMetadata;
 import org.mobicents.servlet.sip.core.session.MobicentsSipApplicationSession;
 import org.mobicents.servlet.sip.core.session.SessionManagerUtil;
 import org.mobicents.servlet.sip.core.session.SipApplicationSessionKey;

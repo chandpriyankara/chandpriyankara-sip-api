@@ -26,8 +26,8 @@ import javax.servlet.sip.SipApplicationSession;
 import javax.servlet.sip.SipSession;
 
 import org.jboss.web.tomcat.service.session.ClusteredManager;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributedCacheConvergedSipManager;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributedCacheConvergedSipManager;
 import org.jboss.web.tomcat.service.session.notification.sip.ClusteredSipApplicationSessionNotificationPolicy;
 import org.jboss.web.tomcat.service.session.notification.sip.ClusteredSipSessionNotificationPolicy;
 import org.mobicents.cluster.MobicentsCluster;

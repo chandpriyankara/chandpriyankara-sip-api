@@ -20,7 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.spi;
+package org.jboss.web.tomcat.service.session.distributedcache.spi.sip;
+
+import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSessionData;
 
 
 /**

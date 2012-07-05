@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc;
+package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.sip;
 
 import java.util.Map;
 
@@ -34,8 +34,12 @@ import org.jboss.cache.notifications.event.NodeCreatedEvent;
 import org.jboss.cache.notifications.event.NodeModifiedEvent;
 import org.jboss.cache.notifications.event.NodeRemovedEvent;
 import org.jboss.metadata.web.jboss.ReplicationGranularity;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributableConvergedSessionManager;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.AbstractJBossCacheService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.ExposedCacheListenerBase;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.FieldBasedJBossCacheService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.ExposedJBossCacheWrapper;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributableSessionManager;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.LocalDistributableConvergedSessionManager;
 
 /**
  * Listens for distributed caches events, notifying the JBossCacheManager
@@ -45,7 +49,7 @@ import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributa
  * @author <A HREF="mailto:jean.deruelle@gmail.com">Jean Deruelle</A>
  */
 @org.jboss.cache.notifications.annotation.CacheListener(sync=false)
-public class SipCacheListener extends CacheListenerBase
+public class SipCacheListener extends ExposedCacheListenerBase
 {
 	protected static Logger logger = Logger.getLogger(SipCacheListener.class);
    // Element within an FQN that is SIPSESSION
@@ -96,9 +100,9 @@ public class SipCacheListener extends CacheListenerBase
    private String sipApplicationName;
    private boolean fieldBased_;
    private boolean attributeBased_;
-   private JBossCacheWrapper wrapper; 
+   private ExposedJBossCacheWrapper wrapper; 
    
-   SipCacheListener(JBossCacheWrapper wrapper,
+   SipCacheListener(ExposedJBossCacheWrapper wrapper,
 			LocalDistributableSessionManager manager, String contextHostPath,
 			ReplicationGranularity granularity, String sipApplicationName, String sipApplicationNameHashed) {
 		super(manager, contextHostPath);

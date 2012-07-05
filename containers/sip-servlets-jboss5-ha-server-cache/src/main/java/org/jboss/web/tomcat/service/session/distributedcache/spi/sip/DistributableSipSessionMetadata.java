@@ -20,15 +20,34 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.spi;
+package org.jboss.web.tomcat.service.session.distributedcache.spi.sip;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributableSessionMetadata;
 
 /**
  * @author jean.deruelle@gmail.com
  *
  */
-public interface OutgoingDistributableSipApplicationSessionData extends OutgoingDistributableSessionData {
-	String getSipApplicationSessionKey();
-	void setSessionMetaDataDirty(boolean isSessionMetaDataDirty);
-	boolean isSessionMetaDataDirty();
+public class DistributableSipSessionMetadata extends
+		DistributableSessionMetadata {
+	// map to store meta data changes for replication.
+	private transient Map<String, Object> metaData = new ConcurrentHashMap<String, Object>();
+
+	/**
+	 * @param metaData the metaData to set
+	 */
+	public void setMetaData(Map<String, Object> metaData) {
+		this.metaData = metaData;
+	}
+
+	/**
+	 * @return the metaData
+	 */
+	public Map<String, Object> getMetaData() {
+		return metaData;
+	}
+		
 }

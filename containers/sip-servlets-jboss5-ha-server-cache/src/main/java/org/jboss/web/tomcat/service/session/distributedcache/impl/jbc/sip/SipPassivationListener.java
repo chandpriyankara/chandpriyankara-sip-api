@@ -20,13 +20,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc;
+package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.sip;
 
 import org.jboss.cache.Fqn;
 import org.jboss.cache.notifications.annotation.NodeActivated;
 import org.jboss.cache.notifications.event.NodeActivatedEvent;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributableConvergedSessionManager;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.AbstractJBossCacheService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.ExposedCacheListenerBase;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributableSessionManager;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.LocalDistributableConvergedSessionManager;
 
 /**
  * Listener for JBoss Cache activation events.  Triggers updates of
@@ -36,7 +38,7 @@ import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributa
  * @version $Revision: 64678 $
  */
 @org.jboss.cache.notifications.annotation.CacheListener
-public class SipPassivationListener extends CacheListenerBase
+public class SipPassivationListener extends ExposedCacheListenerBase
 {
 	private String sipApplicationNameHashed;
 	

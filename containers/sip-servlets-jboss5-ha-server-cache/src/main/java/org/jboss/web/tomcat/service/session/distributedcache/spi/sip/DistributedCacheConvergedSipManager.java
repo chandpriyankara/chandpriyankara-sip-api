@@ -20,13 +20,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.spi;
+package org.jboss.web.tomcat.service.session.distributedcache.spi.sip;
 
 import java.util.Map;
 import java.util.Set;
 
 import org.jboss.cache.Cache;
 import org.jboss.cache.Fqn;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributedCacheManager;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.IncomingDistributableSessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSessionData;
 
 /**
  * @author jean.deruelle@gmail.com

@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc;
+package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.sip;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,15 +33,19 @@ import org.jboss.cache.Fqn;
 import org.jboss.cache.Node;
 import org.jboss.cache.pojo.impl.InternalConstant;
 import org.jboss.logging.Logger;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.AbstractJBossCacheService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.ExposedAbstractJBossCacheService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.IncomingDistributableSessionDataImpl;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.Util;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributableSessionMetadata;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributableSipApplicationSessionMetadata;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributableSipSessionMetadata;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributedCacheConvergedSipManager;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.IncomingDistributableSessionData;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributableSessionManager;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSessionData;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSipApplicationSessionData;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSipSessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributableSipApplicationSessionMetadata;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributableSipSessionMetadata;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributedCacheConvergedSipManager;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.OutgoingDistributableSipApplicationSessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.OutgoingDistributableSipSessionData;
 
 /**
  * @author jean.deruelle@gmail.com
@@ -56,11 +60,11 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	private SipCacheListener sipCacheListener_;
 	private SipPassivationListener sipPassivationListener_;
 	
-	AbstractJBossCacheService<OutgoingDistributableSessionData> jBossCacheService;
+	ExposedAbstractJBossCacheService jBossCacheService;
 	LocalDistributableSessionManager manager;
 	
 	public DistributedCacheConvergedSipManagerDelegate(AbstractJBossCacheService<OutgoingDistributableSessionData> jBossCacheService, LocalDistributableSessionManager localManager) {
-		this.jBossCacheService = jBossCacheService;
+		this.jBossCacheService = new ExposedAbstractJBossCacheService(jBossCacheService);
 		manager = localManager;
 		if (log_.isDebugEnabled()) {
 			log_.debug("DistributedCacheConvergedSipManagerDelegate : jbossCacheService " + jBossCacheService + " manager " + manager);
@@ -92,10 +96,10 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	
 	private void createCacheListeners() {
 		// do here the creation of the root node for holding sip session data, cause it may fail if concurrently created on demand (storing sessions) 
-		jBossCacheService.getCache().getRoot().addChild(getSipApplicationSessionParentFqn(jBossCacheService.combinedPath_));
+		jBossCacheService.getCache().getRoot().addChild(getSipApplicationSessionParentFqn(jBossCacheService.getCombinedPath()));
 		
 		sipCacheListener_ = new SipCacheListener(
-				jBossCacheService.cacheWrapper_, manager, jBossCacheService.combinedPath_,
+				jBossCacheService.getCacheWrapper(), manager, jBossCacheService.getCombinedPath(),
 				Util.getReplicationGranularity(manager), sipApplicationName, sipApplicationNameHashed);
 		if (log_.isDebugEnabled()) {
 			log_.debug("DistributedCacheConvergedSipManagerDelegate.start() : sipCacheListener " + sipCacheListener_);
@@ -106,7 +110,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			log_.debug("Passivation is enabled");
 			sipPassivationListener_ = new SipPassivationListener(
 					manager,
-					jBossCacheService.combinedPath_, sipApplicationNameHashed);
+					jBossCacheService.getCombinedPath(), sipApplicationNameHashed);
 			jBossCacheService.getCache().addCacheListener(
 					sipPassivationListener_);
 		}
@@ -114,7 +118,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	
 	public void stop() {
 		//FIXME : this is a hack to remove exception on shutdown, when releasing the cache to the manager
-		jBossCacheService.cacheConfigName_ = null;
+		jBossCacheService.setCacheConfigName(null);
 		if (sipCacheListener_ != null) {
 			jBossCacheService.getCache().removeCacheListener(sipCacheListener_);
 			if (sipPassivationListener_ != null) {
@@ -133,27 +137,27 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	}
 
 	public void evictSipSession(String sipAppSessionKey, String key, String dataOwner) {
-		Fqn<String> fqn = dataOwner == null ? getSipSessionFqn(jBossCacheService.combinedPath_,
-				sipAppSessionKey, key) : getBuddyBackupSipSessionFqn(dataOwner, jBossCacheService.combinedPath_,
+		Fqn<String> fqn = dataOwner == null ? getSipSessionFqn(jBossCacheService.getCombinedPath(),
+				sipAppSessionKey, key) : getBuddyBackupSipSessionFqn(dataOwner, jBossCacheService.getCombinedPath(),
 				sipAppSessionKey, key);
 		if (log_.isDebugEnabled()) {
 			log_
 					.debug("evictSession(): evicting sip session from my distributed store. Fqn: "
 							+ fqn);
 		}
-		jBossCacheService.cacheWrapper_.evictSubtree(fqn);
+		jBossCacheService.getCacheWrapper().evictSubtree(fqn);
 	}
 
 	public void evictSipApplicationSession(String key, String dataOwner) {
-		Fqn<String> fqn = dataOwner == null ? getSipApplicationSessionFqn(jBossCacheService.combinedPath_,
-				key) : getBuddyBackupSipApplicationSessionFqn(dataOwner, jBossCacheService.combinedPath_,
+		Fqn<String> fqn = dataOwner == null ? getSipApplicationSessionFqn(jBossCacheService.getCombinedPath(),
+				key) : getBuddyBackupSipApplicationSessionFqn(dataOwner, jBossCacheService.getCombinedPath(),
 						key);
 		if (log_.isDebugEnabled()) {
 			log_
 					.debug("evictSession(): evicting sip application session from my distributed store. Fqn: "
 							+ fqn);
 		}
-		jBossCacheService.cacheWrapper_.evictSubtree(fqn);
+		jBossCacheService.getCacheWrapper().evictSubtree(fqn);
 	}
 
 	public IncomingDistributableSessionData getSipSessionData(String sipAppSessionKey, String key,
@@ -162,8 +166,8 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			throw new IllegalArgumentException("Null key");
 		}
 
-		Fqn<String> fqn = getSipSessionFqn(jBossCacheService.combinedPath_, sipAppSessionKey, key);
-		Map<Object, Object> sessionData = jBossCacheService.cacheWrapper_.getData(fqn, true);
+		Fqn<String> fqn = getSipSessionFqn(jBossCacheService.getCombinedPath(), sipAppSessionKey, key);
+		Map<Object, Object> sessionData = jBossCacheService.getCacheWrapper().getData(fqn, true);
 
 		if (sessionData == null) {
 			// Requested session is no longer in the cache; return null
@@ -176,7 +180,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			}
 		}
 		
-		Map<Object, Object> sessionMetaData = jBossCacheService.cacheWrapper_.getData(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY), true);
+		Map<Object, Object> sessionMetaData = jBossCacheService.getCacheWrapper().getData(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY), true);
 		Map<String, Object> sipSessionMetaData = new java.util.concurrent.ConcurrentHashMap<String, Object>();
 		if(sessionMetaData != null) {
 			for(Entry<Object, Object> entry : sessionMetaData.entrySet()) {
@@ -188,7 +192,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		}
 		
 		Map<Object, Object> sessionAttributesData =
-			jBossCacheService.cacheWrapper_.getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), true);
+			jBossCacheService.getCacheWrapper().getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), true);
 		if (sessionAttributesData != null && log_.isDebugEnabled()) {
 			for(Entry<Object, Object> entry : sessionAttributesData.entrySet()) {
 				log_.debug("getSipSessionData(): fqn " + Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY) + " key=" + entry.getKey() + ", value=" + entry.getValue());
@@ -196,7 +200,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		}
 			
 		Map<Object, Object> versionData =
-			jBossCacheService.cacheWrapper_.getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY), true);
+			jBossCacheService.getCacheWrapper().getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY), true);
 		
 		if (initialLoad) {
 			jBossCacheService.setupSessionRegion(fqn);
@@ -222,10 +226,10 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 
 	public IncomingDistributableSessionData getSipSessionData(String sipAppSessionKey, String key,
 			String dataOwner, boolean includeAttributes) {		
-		Fqn<String> fqn = dataOwner == null ? getSipSessionFqn(jBossCacheService.combinedPath_,
-				sipAppSessionKey, key) : getBuddyBackupSipSessionFqn(dataOwner, jBossCacheService.combinedPath_,
+		Fqn<String> fqn = dataOwner == null ? getSipSessionFqn(jBossCacheService.getCombinedPath(),
+				sipAppSessionKey, key) : getBuddyBackupSipSessionFqn(dataOwner, jBossCacheService.getCombinedPath(),
 						sipAppSessionKey, key);
-		Map<Object, Object> distributedCacheData = jBossCacheService.cacheWrapper_.getData(fqn,
+		Map<Object, Object> distributedCacheData = jBossCacheService.getCacheWrapper().getData(fqn,
 				false);
 		return jBossCacheService.getDistributableSessionData(key, distributedCacheData,
 				includeAttributes);
@@ -237,8 +241,8 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			throw new IllegalArgumentException("Null key");
 		}
 
-		Fqn<String> fqn = getSipApplicationSessionFqn(jBossCacheService.combinedPath_, key);
-		Map<Object, Object> sessionData = jBossCacheService.cacheWrapper_.getData(fqn, true);
+		Fqn<String> fqn = getSipApplicationSessionFqn(jBossCacheService.getCombinedPath(), key);
+		Map<Object, Object> sessionData = jBossCacheService.getCacheWrapper().getData(fqn, true);
 
 		if (sessionData == null) {
 			// Requested session is no longer in the cache; return null
@@ -250,7 +254,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			}
 		}
 		
-		Map<Object, Object> sessionMetaData = jBossCacheService.cacheWrapper_.getData(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY), true);
+		Map<Object, Object> sessionMetaData = jBossCacheService.getCacheWrapper().getData(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY), true);
 		Map<String, Object> sipAppSessionMetaData = new HashMap<String, Object>();
 		if(sessionMetaData != null) {
 			for(Entry<Object, Object> entry : sessionMetaData.entrySet()) {
@@ -262,7 +266,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		}
 		
 		Map<Object, Object> sessionAttributesData =
-				jBossCacheService.cacheWrapper_.getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), true);
+				jBossCacheService.getCacheWrapper().getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), true);
 		if (sessionAttributesData != null && log_.isDebugEnabled()) {
 			for(Entry<Object, Object> entry : sessionAttributesData.entrySet()) {
 				log_.debug("getSipApplicationSessionData(): fqn " + Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY) + " key=" + entry.getKey() + ", value=" + entry.getValue());
@@ -270,7 +274,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		}
 		
 		Map<Object, Object> versionData =
-			jBossCacheService.cacheWrapper_.getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY), true);
+			jBossCacheService.getCacheWrapper().getData(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY), true);
 		
 		if (initialLoad) {
 			jBossCacheService.setupSessionRegion(fqn);
@@ -317,10 +321,10 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			String key, String dataOwner,
 			boolean includeAttributes) {
 		
-		Fqn<String> fqn = dataOwner == null ? getSipApplicationSessionFqn(jBossCacheService.combinedPath_,
-				key) : getBuddyBackupSipApplicationSessionFqn(dataOwner, jBossCacheService.combinedPath_,
+		Fqn<String> fqn = dataOwner == null ? getSipApplicationSessionFqn(jBossCacheService.getCombinedPath(),
+				key) : getBuddyBackupSipApplicationSessionFqn(dataOwner, jBossCacheService.getCombinedPath(),
 				key);
-		Map<Object, Object> distributedCacheData = jBossCacheService.cacheWrapper_.getData(fqn,
+		Map<Object, Object> distributedCacheData = jBossCacheService.getCacheWrapper().getData(fqn,
 				false);
 		return jBossCacheService.getDistributableSessionData(key, distributedCacheData,
 				includeAttributes);
@@ -332,7 +336,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		Fqn<String> sipappFqn = getSipappFqn();
 
 		Node<Object, Object> bbRoot = jBossCacheService.getCache().getRoot()
-				.getChild(jBossCacheService.BUDDY_BACKUP_FQN);
+				.getChild(AbstractJBossCacheService.BUDDY_BACKUP_FQN);
 		if (bbRoot != null) {
 			Set<Node<Object, Object>> owners = bbRoot.getChildren();
 			if (owners != null) {
@@ -358,7 +362,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	
 	protected Fqn<String> getSipappFqn() {
 		// /SIPSESSION/sipAppPath_hostName
-		String[] objs = new String[] { SIPSESSION, jBossCacheService.combinedPath_ };
+		String[] objs = new String[] { SIPSESSION, jBossCacheService.getCombinedPath() };
 		return Fqn.fromList(Arrays.asList(objs), true);
 	}
 
@@ -390,7 +394,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		Fqn<String> sipappFqn = getSipappFqn();
 
 		Node<Object, Object> bbRoot = jBossCacheService.getCache().getRoot()
-				.getChild(jBossCacheService.BUDDY_BACKUP_FQN);
+				.getChild(AbstractJBossCacheService.BUDDY_BACKUP_FQN);
 		if (bbRoot != null) {
 			Set<Node<Object, Object>> owners = bbRoot.getChildren();
 			if (owners != null) {
@@ -414,51 +418,51 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	}
 
 	public void removeSipApplicationSession(String key) {
-		Fqn<String> fqn = getSipApplicationSessionFqn(jBossCacheService.combinedPath_, key);
+		Fqn<String> fqn = getSipApplicationSessionFqn(jBossCacheService.getCombinedPath(), key);
 		if (log_.isTraceEnabled()) {
 			log_.trace("Remove session from distributed store. Fqn: " + fqn);
 		}
 
-		jBossCacheService.cacheWrapper_.remove(fqn);
+		jBossCacheService.getCacheWrapper().remove(fqn);
 
 		jBossCacheService.removeSessionRegion(key, fqn);
 	}
 	
 	public void removeSipSession(String key, String sipSessionKey) {
-		Fqn<String> fqn = getSipSessionFqn(jBossCacheService.combinedPath_, key, sipSessionKey);
+		Fqn<String> fqn = getSipSessionFqn(jBossCacheService.getCombinedPath(), key, sipSessionKey);
 		if (log_.isTraceEnabled()) {
 			log_.trace("Remove session from distributed store. Fqn: " + fqn);
 		}
 
-		jBossCacheService.cacheWrapper_.remove(fqn);
+		jBossCacheService.getCacheWrapper().remove(fqn);
 
 		jBossCacheService.removeSessionRegion(sipSessionKey, fqn);
 	}
 	
 	public void removeSipApplicationSessionLocal(String key) {
 		Fqn<String> fqn = getSipApplicationSessionFqn(
-				jBossCacheService.combinedPath_, key);
+				jBossCacheService.getCombinedPath(), key);
 		if (log_.isTraceEnabled()) {
 			log_
 					.trace("Remove session from my own distributed store only. Fqn: "
 							+ fqn);
 		}
 
-		jBossCacheService.cacheWrapper_.removeLocal(fqn);
+		jBossCacheService.getCacheWrapper().removeLocal(fqn);
 
 		jBossCacheService.removeSessionRegion(key, fqn);
 	}
 
 	public void removeSipSessionLocal(String sipAppSessionKey, String key) {		
 		Fqn<String> fqn = getSipSessionFqn(
-				jBossCacheService.combinedPath_, sipAppSessionKey, key);
+				jBossCacheService.getCombinedPath(), sipAppSessionKey, key);
 		if (log_.isTraceEnabled()) {
 			log_
 					.trace("Remove session from my own distributed store only. Fqn: "
 							+ fqn);
 		}
 
-		jBossCacheService.cacheWrapper_.removeLocal(fqn);
+		jBossCacheService.getCacheWrapper().removeLocal(fqn);
 
 		jBossCacheService.removeSessionRegion(key, fqn);
 	}
@@ -469,13 +473,13 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			removeSipApplicationSessionLocal(key);
 		} else {
 			Fqn<String> fqn = getBuddyBackupSipApplicationSessionFqn(dataOwner,
-					jBossCacheService.combinedPath_, key);
+					jBossCacheService.getCombinedPath(), key);
 			if (log_.isTraceEnabled()) {
 				log_
 						.trace("Remove session from my own distributed store only. Fqn: "
 								+ fqn);
 			}
-			jBossCacheService.cacheWrapper_.removeLocal(fqn);
+			jBossCacheService.getCacheWrapper().removeLocal(fqn);
 		}
 	}
 
@@ -484,13 +488,13 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			removeSipSessionLocal(sipAppSessionKey, key);
 		} else {			
 			Fqn<String> fqn = getBuddyBackupSipSessionFqn(dataOwner,
-					jBossCacheService.combinedPath_, sipAppSessionKey, key);
+					jBossCacheService.getCombinedPath(), sipAppSessionKey, key);
 			if (log_.isTraceEnabled()) {
 				log_
 						.trace("Remove session from my own distributed store only. Fqn: "
 								+ fqn);
 			}
-			jBossCacheService.cacheWrapper_.removeLocal(fqn);
+			jBossCacheService.getCacheWrapper().removeLocal(fqn);
 		}
 	}
 	
@@ -515,7 +519,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	
 	public Fqn<String> getBuddyBackupSipSessionFqn(String dataOwner,
 			String contextHostPath, String appSessionId, String sessionId) {
-		String[] objs = new String[] { jBossCacheService.BUDDY_BACKUP,
+		String[] objs = new String[] { AbstractJBossCacheService.BUDDY_BACKUP,
 				dataOwner, SIPSESSION, contextHostPath,
 				sipApplicationNameHashed, appSessionId, sessionId };
 		return Fqn.fromList(Arrays.asList(objs), true);
@@ -523,7 +527,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	
 	public Fqn<String> getBuddyBackupSipApplicationSessionFqn(String dataOwner,
 			String contextHostPath, String sessionId) {
-		String[] objs = new String[] { jBossCacheService.BUDDY_BACKUP,
+		String[] objs = new String[] { AbstractJBossCacheService.BUDDY_BACKUP,
 				dataOwner, SIPSESSION, contextHostPath,
 				sipApplicationNameHashed, sessionId };
 		return Fqn.fromList(Arrays.asList(objs), true);
@@ -536,7 +540,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			log_.trace("putSipSession(): putting sip session " + fqnId);
 		}
 
-		Fqn<String> fqn = getSipApplicationSessionFqn(jBossCacheService.combinedPath_, fqnId);
+		Fqn<String> fqn = getSipApplicationSessionFqn(jBossCacheService.getCombinedPath(), fqnId);
 
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		
@@ -546,7 +550,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		Thread.currentThread().setContextClassLoader(manager.getApplicationClassLoader());
 		try {
 			storeSipApplicationSessionMetaData(fqn, sipApplicationSessionData);
-			((DistributedCacheConvergedSipManager)jBossCacheService).storeSipApplicationSessionAttributes(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), sipApplicationSessionData);
+			((DistributedCacheConvergedSipManager)jBossCacheService.getWrappedjBossCacheService()).storeSipApplicationSessionAttributes(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), sipApplicationSessionData);
 		} finally {
 			Thread.currentThread().setContextClassLoader(prevTCL);
 		}
@@ -563,14 +567,14 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 				log_.debug("storeSipApplicationSessionMetaData(): isNew " + dsm.isNew());
 			}
 			if(dsm.isNew()) {
-				jBossCacheService.cacheWrapper_.put(fqn, AbstractJBossCacheService.METADATA_KEY.toString(), dsm);
+				jBossCacheService.getCacheWrapper().put(fqn, AbstractJBossCacheService.METADATA_KEY.toString(), dsm);
 			}
 			if(dsm.getMetaData() != null) {				
 				for(Entry<String, Object> entry : dsm.getMetaData().entrySet()) {
 					if (log_.isDebugEnabled()) {
 						log_.debug("storeSipApplicationSessionMetaData(): metadata to replicate key = " + entry.getKey() + " value = "  + entry.getValue());
 					}
-					jBossCacheService.cacheWrapper_.put(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY ), entry.getKey(), entry.getValue());
+					jBossCacheService.getCacheWrapper().put(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY ), entry.getKey(), entry.getValue());
 				}			
 			}			
 		}
@@ -580,10 +584,10 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			if (log_.isDebugEnabled()) {
 				log_.debug("storeSipApplicationSessionMetaData(): storing timestamp " + timestamp);
 			}
-			jBossCacheService.cacheWrapper_.put(fqn, AbstractJBossCacheService.TIMESTAMP_KEY.toString(), timestamp.longValue());
+			jBossCacheService.getCacheWrapper().put(fqn, AbstractJBossCacheService.TIMESTAMP_KEY.toString(), timestamp.longValue());
 		}
 		
-		jBossCacheService.cacheWrapper_.put(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY.toString()), AbstractJBossCacheService.VERSION_KEY.toString(), sipApplicationSessionData.getVersion());
+		jBossCacheService.getCacheWrapper().put(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY.toString()), AbstractJBossCacheService.VERSION_KEY.toString(), sipApplicationSessionData.getVersion());
 	}
 
 	public void storeSipSessionData(
@@ -595,7 +599,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			log_.debug("storeSipSessionData(): putting sip session " + sessionKey.toString());
 		}
 
-		Fqn<String> fqn = getSipSessionFqn(jBossCacheService.combinedPath_, sipApplicationSessionKey, sessionKey);
+		Fqn<String> fqn = getSipSessionFqn(jBossCacheService.getCombinedPath(), sipApplicationSessionKey, sessionKey);
 
 		// Swap in/out the webapp classloader so we can deserialize
         // attributes whose classes are only available to the webapp
@@ -618,14 +622,14 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 				log_.debug("storeSipSessionMetaData(): isNew " + dsm.isNew());
 			}
 			if(dsm.isNew()) {
-				jBossCacheService.cacheWrapper_.put(fqn, AbstractJBossCacheService.METADATA_KEY.toString(), dsm);
+				jBossCacheService.getCacheWrapper().put(fqn, AbstractJBossCacheService.METADATA_KEY.toString(), dsm);
 			}
 			if(dsm.getMetaData() != null) {				
 				for(Entry<String, Object> entry : dsm.getMetaData().entrySet()) {
 					if (log_.isDebugEnabled()) {
 						log_.debug("storeSipSessionMetaData(): metadata to replicate key = " + entry.getKey() + " value = "  + entry.getValue());
 					}
-					jBossCacheService.cacheWrapper_.put(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY ), entry.getKey(), entry.getValue());
+					jBossCacheService.getCacheWrapper().put(Fqn.fromString(fqn.toString() + "/" + SIP_SERVLETS_METADATA_KEY ), entry.getKey(), entry.getValue());
 				}			
 			}
 		}
@@ -635,9 +639,9 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 			if (log_.isDebugEnabled()) {
 				log_.debug("storeSipSessionMetaData(): storing timestamp " + timestamp);
 			}
-			jBossCacheService.cacheWrapper_.put(fqn, AbstractJBossCacheService.TIMESTAMP_KEY.toString(), timestamp.longValue());
+			jBossCacheService.getCacheWrapper().put(fqn, AbstractJBossCacheService.TIMESTAMP_KEY.toString(), timestamp.longValue());
 		}
 		
-		jBossCacheService.cacheWrapper_.put(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY.toString()), AbstractJBossCacheService.VERSION_KEY.toString(), sipSessionData.getVersion());
+		jBossCacheService.getCacheWrapper().put(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.VERSION_KEY.toString()), AbstractJBossCacheService.VERSION_KEY.toString(), sipSessionData.getVersion());
 	} 
 }

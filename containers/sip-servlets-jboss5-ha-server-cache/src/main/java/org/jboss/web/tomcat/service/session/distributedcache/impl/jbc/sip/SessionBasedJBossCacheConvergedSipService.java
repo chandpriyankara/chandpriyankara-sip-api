@@ -20,23 +20,26 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc;
+package org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.sip;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.jboss.cache.Cache;
 import org.jboss.cache.Fqn;
 import org.jboss.metadata.web.jboss.ReplicationGranularity;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.AbstractJBossCacheService;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.ExposedJBossCacheWrapper;
+import org.jboss.web.tomcat.service.session.distributedcache.impl.jbc.SessionBasedJBossCacheService;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.ClusteringNotSupportedException;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.DistributedCacheConvergedSipManager;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.IncomingDistributableSessionData;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.LocalDistributableSessionManager;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSipApplicationSessionData;
-import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingDistributableSipSessionData;
 import org.jboss.web.tomcat.service.session.distributedcache.spi.OutgoingSessionGranularitySessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributedCacheConvergedSipManager;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.OutgoingDistributableSipApplicationSessionData;
+import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.OutgoingDistributableSipSessionData;
 
 /**
  * @author jean.deruelle@gmail.com
@@ -53,10 +56,13 @@ public class SessionBasedJBossCacheConvergedSipService extends
 	
 	DistributedCacheConvergedSipManagerDelegate<OutgoingSessionGranularitySessionData> delegate;
 
+	private final ExposedJBossCacheWrapper cacheWrapper_;
+	
 	public SessionBasedJBossCacheConvergedSipService(
 			LocalDistributableSessionManager localManager)
 			throws ClusteringNotSupportedException {
 		super(localManager);
+		cacheWrapper_= new ExposedJBossCacheWrapper(super.cacheWrapper_);
 		delegate = new DistributedCacheConvergedSipManagerDelegate(
 				(AbstractJBossCacheService) this, localManager);
 	}
@@ -65,6 +71,7 @@ public class SessionBasedJBossCacheConvergedSipService extends
 			LocalDistributableSessionManager localManager,
 			Cache<Object, Object> plainCache) {
 		super(localManager, plainCache);
+		cacheWrapper_= new ExposedJBossCacheWrapper(super.cacheWrapper_);
 		delegate = new DistributedCacheConvergedSipManagerDelegate(
 				(AbstractJBossCacheService) this, localManager);
 	}

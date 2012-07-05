@@ -148,5 +148,6 @@
 	<classpathentry kind="var" path="M2_REPO/trove/trove/2.1.1/trove-2.1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/wutka-dtdparser/dtdparser121/1.2.1/dtdparser121-1.2.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jbossweb-5-exposed-common-lib-1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
