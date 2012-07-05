@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.deployment;
+package org.jboss.deployment.sip;
 
 import java.io.IOException;
 import java.lang.reflect.AnnotatedElement;
@@ -29,6 +29,7 @@ import java.util.List;
 
 import org.jboss.deployers.spi.DeploymentException;
 import org.jboss.deployers.vfs.spi.structure.VFSDeploymentUnit;
+import org.jboss.deployment.OptAnnotationMetaDataDeployer;
 import org.jboss.metadata.annotation.creator.sip.Sip11MetaDataCreator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
