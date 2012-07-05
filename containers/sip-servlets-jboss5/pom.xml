@@ -102,7 +102,25 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/jboss-web-deployer-${jboss.version}.jar</systemPath>
 			<optional>true</optional>
-		</dependency>					
+		</dependency>
+		
+		<dependency>
+			<groupId>com.redhat.jbcp</groupId>
+			<artifactId>jbossweb-5-exposed-jbossweb.sar</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jbossweb-5-exposed-jbossweb.sar-1.0.jar</systemPath>
+			<optional>true</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.redhat.jbcp</groupId>
+			<artifactId>jbossweb-5-exposed-common-lib</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jjbossweb-5-exposed-common-lib-1.0.jar</systemPath>
+			<optional>true</optional>
+		</dependency>				
 				
 		<dependency>
 			<groupId>org.jboss.jbossas</groupId>

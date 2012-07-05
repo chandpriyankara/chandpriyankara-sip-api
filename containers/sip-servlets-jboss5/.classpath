@@ -168,5 +168,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-core-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-catalina"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jain-sip"/>
+	<classpathentry kind="lib" path="lib/jbossweb-5-exposed-common-lib-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jbossweb-5-exposed-jbossweb.sar-1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
