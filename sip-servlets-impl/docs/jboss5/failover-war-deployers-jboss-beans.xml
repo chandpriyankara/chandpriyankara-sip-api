@@ -126,7 +126,7 @@ $Id: war-deployers-jboss-beans.xml 85945 2009-03-16 19:45:12Z dimitris@jboss.org
    </bean>
 
    <!-- The WebMetaData to service mbean deployer org.jboss.web.tomcat.service.deployers.TomcatDeployer org.mobicents.servlet.sip.startup.jboss.TomcatConvergedDeployer-->
-   <bean name="WarDeployer" class="org.mobicents.servlet.sip.startup.jboss.sip.TomcatConvergedDeployer">
+   <bean name="WarDeployer" class="org.mobicents.servlet.sip.startup.jboss.TomcatConvergedDeployer">
       <install bean="ManagedDeploymentCreator" method="addAttachmentType">
          <parameter>
             <value>org.jboss.metadata.web.jboss.JBossWebMetaData</value>
