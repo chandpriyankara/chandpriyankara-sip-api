@@ -129,7 +129,7 @@ import org.mobicents.servlet.sip.startup.StaticServiceHolder;
 public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> extends JBossCacheManager implements
 		ClusteredSipManager<O>, LocalDistributableConvergedSessionManager, JBossCacheSipManagerMBean {
 
-    protected static final String DISTRIBUTED_CACHE_FACTORY_CLASSNAME = "org.jboss.web.tomcat.service.session.distributedcache.spi.DistributedCacheConvergedSipManagerFactoryImpl";
+    protected static final String DISTRIBUTED_CACHE_FACTORY_CLASSNAME = "org.jboss.web.tomcat.service.session.distributedcache.spi.sip.DistributedCacheConvergedSipManagerFactoryImpl";
     
 	protected static Logger logger = Logger.getLogger(JBossCacheSipManager.class);
 	
