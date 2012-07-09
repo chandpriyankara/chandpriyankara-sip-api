@@ -96,6 +96,7 @@
 								<configuration>
 									<tasks>
 										<copy verbose="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${env.JBOSS_HOME}/common/lib/" />
+										<copy verbose="true" file="${basedir}/lib/jbossweb-5-exposed-common-lib-1.0.jar" todir="${env.JBOSS_HOME}/common/lib/" />
 									</tasks>
 								</configuration>
 								<goals>
@@ -121,6 +122,7 @@
 								<configuration>
 									<tasks>
 										<copy verbose="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${JBOSS_HOME}/common/lib" />
+										<copy verbose="true" file="${basedir}/lib/jbossweb-5-exposed-common-lib-1.0.jar" todir="${JBOSS_HOME}/common/lib/" />
 									</tasks>
 								</configuration>
 								<goals>

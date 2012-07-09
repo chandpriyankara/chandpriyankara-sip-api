@@ -273,6 +273,7 @@
 								<configuration>
 									<tasks>										
 										<copy verbose="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${env.JBOSS_HOME}/server/${node}/deploy/jbossweb.sar/" />
+										<copy verbose="true" file="${basedir}/lib/jbossweb-5-exposed-jbossweb.sar-1.0.jar" todir="${env.JBOSS_HOME}/server/${node}/deploy/jbossweb.sar/" />										
 									</tasks>
 								</configuration>
 								<goals>
@@ -315,6 +316,7 @@
 								<configuration>
 									<tasks>										
 										<copy verbose="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${JBOSS_HOME}/server/${node}/deploy/jbossweb.sar/" />
+										<copy verbose="true" file="${basedir}/lib/jbossweb-5-exposed-jbossweb.sar-1.0.jar" todir="${JBOSS_HOME}/server/${node}/deploy/jbossweb.sar/" />
 									</tasks>
 								</configuration>
 								<goals>
