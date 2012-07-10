@@ -1117,8 +1117,8 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
       {
          boolean passivate = isPassivationEnabled();
 
-         long passivationMax = passivationMaxIdleTime_ * 1000L;
-         long passivationMin = passivationMinIdleTime_ * 1000L;
+         long passivationMax = getPassivationMaxIdleTime() * 1000L;
+         long passivationMin = getPassivationMinIdleTime() * 1000L;
          
          for (Map.Entry<String, String> entry : sessions.entrySet())
          {
@@ -1305,9 +1305,9 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
       boolean expire = maxInactiveInterval_ >= 0;
       boolean passivate = isPassivationEnabled();
       
-      long passivationMax = passivationMaxIdleTime_ * 1000L;
-      long passivationMin = passivationMinIdleTime_ * 1000L;
-
+      long passivationMax = getPassivationMaxIdleTime() * 1000L;
+      long passivationMin = getPassivationMinIdleTime() * 1000L;
+      
       if (log_.isDebugEnabled())
       { 
          log_.debug("processExpirationPassivation(): Looking for sessions that have expired ...");
@@ -1527,9 +1527,9 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
       boolean expire = maxInactiveInterval_ >= 0;
       boolean passivate = isPassivationEnabled();
       
-      long passivationMax = passivationMaxIdleTime_ * 1000L;
-      long passivationMin = passivationMinIdleTime_ * 1000L;
-
+      long passivationMax = getPassivationMaxIdleTime() * 1000L;
+      long passivationMin = getPassivationMinIdleTime() * 1000L;
+      
       if (log_.isDebugEnabled()) { 
          log_.debug("processSipSessionExpirationPassivation(): Looking for sip sessions that have expired ...");
          log_.debug("processSipSessionExpirationPassivation(): passivation Max = " + passivationMax);
@@ -1660,9 +1660,9 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
       boolean expire = maxInactiveInterval_ >= 0;
       boolean passivate = isPassivationEnabled();
       
-      long passivationMax = passivationMaxIdleTime_ * 1000L;
-      long passivationMin = passivationMinIdleTime_ * 1000L;
-
+      long passivationMax = getPassivationMaxIdleTime() * 1000L;
+      long passivationMin = getPassivationMinIdleTime() * 1000L;
+      
       if (log_.isDebugEnabled())
       { 
          log_.debug("processSipApplicationSessionExpirationPassivation(): Looking for sip application sessions that have expired ...");
@@ -3061,9 +3061,9 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
 		if (sessions != null) {
 			boolean passivate = isPassivationEnabled();
 
-			long passivationMax = passivationMaxIdleTime_ * 1000L;
-			long passivationMin = passivationMinIdleTime_ * 1000L;
-
+			long passivationMax = getPassivationMaxIdleTime() * 1000L;
+	        long passivationMin = getPassivationMinIdleTime() * 1000L;
+	         
 			for (Map.Entry<String, String> entry : sessions.entrySet()) {
 				String sipApplicationSessionKey = entry.getKey();
 				String owner = entry.getValue();
