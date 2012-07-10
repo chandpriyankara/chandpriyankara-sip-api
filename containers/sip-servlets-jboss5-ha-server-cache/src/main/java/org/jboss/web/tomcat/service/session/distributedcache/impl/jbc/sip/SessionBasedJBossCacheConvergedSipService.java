@@ -55,7 +55,6 @@ public class SessionBasedJBossCacheConvergedSipService extends
 	            "with ReplicationGranularity " + ReplicationGranularity.SESSION);
 	
 	DistributedCacheConvergedSipManagerDelegate<OutgoingSessionGranularitySessionData> delegate;
-
 	private final ExposedJBossCacheWrapper cacheWrapper_;
 	
 	public SessionBasedJBossCacheConvergedSipService(
@@ -79,6 +78,11 @@ public class SessionBasedJBossCacheConvergedSipService extends
 	@Override
 	public void start() {
 		super.start();
+		if (log_.isDebugEnabled()) {
+			log_
+				.debug("starting delegate "
+						+ delegate);
+		}
 		delegate.start();
 	}
 

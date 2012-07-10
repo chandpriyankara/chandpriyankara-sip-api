@@ -53,7 +53,7 @@ import org.jboss.web.tomcat.service.session.distributedcache.spi.sip.OutgoingDis
  */
 public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistributableSessionData> {
 	public static final Integer SIP_SERVLETS_METADATA_KEY = Integer.valueOf(4);
-	protected Logger log_ = Logger.getLogger(getClass());
+	protected Logger log_ = Logger.getLogger(DistributedCacheConvergedSipManagerDelegate.class);
 	public static final String SIPSESSION = "SIPSESSION";
 	protected String sipApplicationNameHashed; 
 	protected String sipApplicationName;
@@ -311,7 +311,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		Long timestamp = (Long) distributedCacheData.get(AbstractJBossCacheService.TIMESTAMP_KEY.toString());
 		DistributableSessionMetadata metadata = (DistributableSessionMetadata) distributedCacheData
 				.get(AbstractJBossCacheService.METADATA_KEY.toString());
-		Map<String, Object> attributes = ((DistributedCacheConvergedSipManager)jBossCacheService).getConvergedSessionAttributes(realId, attrs);
+		Map<String, Object> attributes = ((DistributedCacheConvergedSipManager)jBossCacheService.getWrappedjBossCacheService()).getConvergedSessionAttributes(realId, attrs);
 		
 		return new IncomingDistributableSessionDataImpl(version, timestamp,
 				metadata, attributes == null ? Collections.EMPTY_MAP : attributes);

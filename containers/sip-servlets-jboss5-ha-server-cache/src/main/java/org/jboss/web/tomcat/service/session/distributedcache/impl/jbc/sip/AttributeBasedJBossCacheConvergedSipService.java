@@ -55,7 +55,7 @@ public class AttributeBasedJBossCacheConvergedSipService extends
 
 	DistributedCacheConvergedSipManagerDelegate<OutgoingAttributeGranularitySessionData> delegate;
 
-	private final ExposedJBossCacheWrapper cacheWrapper_;
+	protected final ExposedJBossCacheWrapper cacheWrapper_;
 	
 	/**
 	 * @param localManager
