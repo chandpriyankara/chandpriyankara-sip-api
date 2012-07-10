@@ -27,8 +27,10 @@ import gov.nist.javax.sip.SipListenerExt;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.sip.SipURI;
 import javax.servlet.sip.ar.SipApplicationRouter;
@@ -195,7 +197,12 @@ public interface SipApplicationDispatcher extends SipListenerExt {
 	
 	String[] getExtensionsSupported();
 	String[] getRfcSupported();
-		
+	
+	public Map<String, AtomicLong> getRequestsProcessedByMethod();
+	public Map<String, AtomicLong> getResponsesProcessedByStatusCode();	
+	long getRequestsProcessedByMethod(String method);
+	long getResponsesProcessedByStatusCode(String statusCode);
+	
 	void setGatherStatistics(boolean gatherStatistics);	
 	boolean isGatherStatistics();
 	

@@ -54,13 +54,17 @@ public class SipApplicationDispatcherComponent extends MBeanResourceComponent im
 		Map<String, AtomicLong> responsesProcessedBySc = null;
 		try {
 			EmsAttribute requestAttribute = getEmsBean().getAttribute(NB_REQUESTS_PROCESSED_BY_METHOD_ATTRIBUTE_NAME);
-			requestsProcessedByMethod = requestsProcessedByMethod = (Map<String, AtomicLong>) requestAttribute.refresh();
+			if(requestAttribute != null) {
+				requestsProcessedByMethod = (Map<String, AtomicLong>) requestAttribute.refresh();
+			}
 		} catch (Throwable e) {
 			log.error("An unexpected exception occured while trying to access the Sip Balancer requestsProcessedByMethod", e);
 		}
 		try {
 			EmsAttribute responseAttribute = getEmsBean().getAttribute(NB_RESPONSES_PROCESSED_BY_SC_ATTRIBUTE_NAME);
-			responsesProcessedBySc = (Map<String, AtomicLong>) responseAttribute.refresh();
+			if(responseAttribute != null) {
+				responsesProcessedBySc = (Map<String, AtomicLong>) responseAttribute.refresh();
+			}
 		} catch (Throwable e) {
 			log.error("An unexpected exception occured while trying to access the Sip Balancer responsesProcessedByStatusCode", e);
 		}
