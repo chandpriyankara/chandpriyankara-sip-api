@@ -607,7 +607,7 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 		Thread.currentThread().setContextClassLoader(manager.getApplicationClassLoader());
 		try {
 			storeSipSessionMetaData(fqn, sipSessionData);
-			((DistributedCacheConvergedSipManager)jBossCacheService).storeSipSessionAttributes(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), sipSessionData);
+			((DistributedCacheConvergedSipManager)jBossCacheService.getWrappedjBossCacheService()).storeSipSessionAttributes(Fqn.fromString(fqn.toString() + "/" + AbstractJBossCacheService.ATTRIBUTE_KEY), sipSessionData);
 		} finally {
 			Thread.currentThread().setContextClassLoader(prevTCL);
 		}
