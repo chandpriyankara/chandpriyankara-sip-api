@@ -47,6 +47,7 @@ import org.mobicents.as7.deployment.SipAnnotationDeploymentProcessor;
 import org.mobicents.as7.deployment.SipContextFactoryDeploymentProcessor;
 import org.mobicents.as7.deployment.SipJndiBindingProcessor;
 import org.mobicents.as7.deployment.SipParsingDeploymentProcessor;
+import org.mobicents.as7.deployment.SipWarDeploymentProcessor;
 
 /**
  * Adds the web subsystem.
@@ -109,7 +110,13 @@ class SipSubsystemAdd extends AbstractBoottimeAddStepHandler implements Descript
                 // plugs our context factory into web subsystem deployers
                 processorTarget.addDeploymentProcessor(Phase.POST_MODULE, SIP_CONTEXT_FACTORY_DEPLOYMENT_PRIORITY, SipContextFactoryDeploymentProcessor.INSTANCE);
                 // binds sip resources to JNDI - Before POST_MODULE_INJECTION_ANNOTATION !!!
+<<<<<<< HEAD
                 processorTarget.addDeploymentProcessor(Phase.POST_MODULE, Phase.POST_MODULE_INJECTION_ANNOTATION - 1, new SipJndiBindingProcessor());
+=======
+                processorTarget.addDeploymentProcessor(SipExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, Phase.POST_MODULE_INJECTION_ANNOTATION - 1, new SipJndiBindingProcessor());
+                // setup management objects for servlets, etc.
+                processorTarget.addDeploymentProcessor(SipExtension.SUBSYSTEM_NAME, Phase.INSTALL, Phase.INSTALL_WAR_DEPLOYMENT, new SipWarDeploymentProcessor());
+>>>>>>> b100126... Support for AS7 cli console
 
 //                // Add the SIP specific deployment processor
 //                processorTarget.addDeploymentProcessor(Phase.PARSE, DEPLOYMENT_PROCESS_PRIORITY, SipMetaDataDeploymentProcessor.INSTANCE);
