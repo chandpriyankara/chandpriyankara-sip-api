@@ -61,8 +61,7 @@ public class MultiHomeUASTest
 
 	public final static String[] ALLOW_HEADERS = new String[] {"INVITE","ACK","CANCEL","OPTIONS","BYE","SUBSCRIBE","NOTIFY","REFER"};
 
-	private static SipStackTool receiverSipStackTool;
-	private static SipStackTool senderSipStackTool;
+	private static SipStackTool sipStackTool;
 	private String testArchive = "simple";
 	private Boolean isDeployed = false;
 
@@ -71,20 +70,19 @@ public class MultiHomeUASTest
 
 	@BeforeClass
 	public static void beforeClass(){
-		receiverSipStackTool = new SipStackTool("MultiHomeUASTest_receiver");
-		senderSipStackTool = new SipStackTool("MultiHomeUASTest_sender");
+		sipStackTool = new SipStackTool();
 	}
 
 	@Before
 	public void setUp() throws Exception
 	{
 		//Create the sipCall and start listening for messages
-		receiver = receiverSipStackTool.initializeSipStack(SipStack.PROTOCOL_UDP, "127.0.0.1", receiverPort, "127.0.0.1:5070");
+		receiver = sipStackTool.initializeSipStack(SipStack.PROTOCOL_UDP, "127.0.0.1", receiverPort, "127.0.0.1:5070");
 		sipPhoneReceiver = receiver.createSipPhone("127.0.0.1", SipStack.PROTOCOL_UDP, proxyPort, receiverURI);
 		sipCallReceiver = sipPhoneReceiver.createSipCall();
 		sipCallReceiver.listenForIncomingCall();
 
-		sender = senderSipStackTool.initializeSipStack(SipStack.PROTOCOL_UDP, "127.0.0.1", senderPort, "127.0.0.1:5070");
+		sender = sipStackTool.initializeSipStack(SipStack.PROTOCOL_UDP, "127.0.0.1", senderPort, "127.0.0.1:5070");
 		sipPhoneSender = sender.createSipPhone("127.0.0.1", SipStack.PROTOCOL_UDP, proxyPort, senderURI);
 		sipCallSender = sipPhoneSender.createSipCall();
 		sipCallSender.listenForIncomingCall();

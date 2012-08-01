@@ -22,21 +22,16 @@
 
 package org.mobicents.servlet.management.server.configuration;
 
-import java.lang.management.ManagementFactory;
 import java.util.Iterator;
 import java.util.Set;
 
 import javax.management.Attribute;
 import javax.management.MBeanServer;
-import javax.management.MBeanServerFactory;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 
-<<<<<<< HEAD
 
 import org.apache.catalina.mbeans.MBeanUtils;
-=======
->>>>>>> issue-136
 import org.mobicents.javax.servlet.CongestionControlPolicy;
 import org.mobicents.servlet.management.client.configuration.ConfigurationService;
 import org.mobicents.servlet.sip.annotation.ConcurrencyControlMode;
@@ -45,16 +40,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ConfigurationServiceImpl  extends RemoteServiceServlet implements ConfigurationService {
 	static final long serialVersionUID = 1L;
-	private static MBeanServer mserver;
-	static {
-		if( MBeanServerFactory.findMBeanServer(null).size() > 0 ) {
-            mserver = (MBeanServer) MBeanServerFactory.findMBeanServer(null).get(0);
-           
-        } else {
-            mserver = ManagementFactory.getPlatformMBeanServer();
-           
-        }
-	}
+	private static MBeanServer mserver = MBeanUtils.createServer();
 	
 	private ObjectName getApplicationDispatcher() {
 		try {

@@ -48,7 +48,4 @@ PutObjectStoreDirHere
 #ignore autogenerate src doco folder
 docs/sources-mobicents/src/
 docs/sources-telscale/src/
-#ignore logs from test-suite
-**/logs/
-
 

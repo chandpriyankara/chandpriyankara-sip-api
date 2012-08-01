@@ -48,7 +48,7 @@ public class MultiHomeUACTest
 
 	@BeforeClass
 	public static void beforeClass(){
-		sipStackTool = new SipStackTool("MultiHomeUACTest");
+		sipStackTool = new SipStackTool();
 	}
 
 	@Before

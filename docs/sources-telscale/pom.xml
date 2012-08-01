@@ -6,11 +6,7 @@
 	<parent>
 		<groupId>org.mobicents.servlet.sip.docs</groupId>
 		<artifactId>sip-servlets-docs</artifactId>
-<<<<<<< HEAD
 		<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-		<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 	</parent>
 	
 	<artifactId>sip-servlets-docs-sources-telscale</artifactId>
@@ -25,11 +21,7 @@
 		<author.email.ivelin>ivelin@telestax.com</author.email.ivelin>
 		<author.email.jean>jean.deruelle@telestax.com</author.email.jean>
 		<author.email.vlad>vralev@telestax.com</author.email.vlad>
-<<<<<<< HEAD
 		<author.email.charles>charles.roufay@telestax.com</author.email.charles>
-=======
-		<author.email.vlad>charles.roufay@telestax.com</author.email.vlad>
->>>>>>> issue-136
 		<download.link>http://support.telestax.com/</download.link>
 	</properties>
 	

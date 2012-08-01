@@ -86,11 +86,7 @@ public class ProxyUtils {
 					final String thisApp = sipFactoryImpl.getSipApplicationDispatcher().getHashFromApplicationName(sipAppKey.getApplicationName());
 					
 					if(nextApp.equals(thisApp)) {
-<<<<<<< HEAD
 						clonedRequest.removeHeader(RouteHeader.NAME);
-=======
-						clonedRequest.removeFirst(RouteHeader.NAME);
->>>>>>> issue-136
 					}
 					rHeader = (RouteHeader) clonedRequest.getHeader(RouteHeader.NAME);
 				}

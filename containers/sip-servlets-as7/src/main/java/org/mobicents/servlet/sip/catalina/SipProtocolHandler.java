@@ -323,9 +323,8 @@ public class SipProtocolHandler implements ProtocolHandler, MBeanRegistration {
 				sipApplicationDispatcher.getSipNetworkInterfaceManager().addExtendedListeningPoint(extendedListeningPoint);
 			}
 			
-			logger.info("Sip Connector started on ip address: " + ipAddress
-					+ ", port " + port + ", transport " + signalingTransport + ", useStun " + sipConnector.isUseStun() + ", stunAddress " + sipConnector.getStunServerAddress() + ", stunPort : " + sipConnector.getStunServerPort()
-					+ ", useStaticAddress: " + sipConnector.isUseStaticAddress() + ", staticServerAddress " + sipConnector.getStaticServerAddress() + ", staticServerPort " + sipConnector.getStaticServerPort());
+			logger.info("Sip Connector started on ip address : " + ipAddress
+					+ ",port " + port + ", transport " + signalingTransport + ", useStun " + useStun + ", stunAddress " + sipConnector.getStunServerAddress() + ", stunPort : " + sipConnector.getStaticServerPort());
 			
 			if (this.domain != null) {
 //	            try {

@@ -3,11 +3,7 @@
 	<parent>
 		<groupId>org.mobicents.servlet.sip.testsuite</groupId>
 		<artifactId>sip-servlets-test-suite-parent</artifactId>
-<<<<<<< HEAD
 		<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-		<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 	</parent>
 	<artifactId>sip-servlets-test-suite</artifactId>
 	<packaging>jar</packaging>
@@ -30,56 +26,32 @@
 		<dependency>
 			<groupId>org.mobicents.servlet.sip</groupId>
 			<artifactId>sip-servlets-spec</artifactId>
-<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-			<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>org.mobicents.servlet.sip</groupId>
 			<artifactId>sip-servlets-core-api</artifactId>
-<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-			<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>org.mobicents.servlet.sip.containers</groupId>
 			<artifactId>sip-servlets-catalina</artifactId>
-<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-			<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>org.mobicents.servlet.sip</groupId>
 			<artifactId>sip-servlets-impl</artifactId>
-<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-			<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>org.mobicents.servlet.sip</groupId>
 			<artifactId>sip-servlets-application-router</artifactId>
-<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-			<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>org.mobicents.servlet.sip.containers</groupId>
 			<artifactId>sip-servlets-tomcat-jboss4</artifactId>
-<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>
-=======
-			<version>1.8.0-SNAPSHOT</version>
->>>>>>> issue-136
 		</dependency>
 		
 		<!-- j2ee dependencies -->

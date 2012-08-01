@@ -83,7 +83,7 @@
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-web</artifactId>
-	    <version>7.1.2.Final</version>
+	    <version>7.1.1.Final</version>
         </dependency>
 
 	<dependency>
@@ -95,7 +95,7 @@
         <dependency>
             <groupId>org.jboss.web</groupId>
             <artifactId>jbossweb</artifactId>
-	    <version>7.0.16.Final</version>
+	    <version>7.0.10.Final</version>
         </dependency>
 
         <dependency>
@@ -175,13 +175,6 @@
         </dependency>
 
         <dependency>
-                <groupId>net.java.stun4j</groupId>
-                <artifactId>stun4j</artifactId>
-                <version>1.0.MOBICENTS</version>
-                <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.mobicents.ha.javax.sip</groupId>
             <artifactId>mobicents-jain-sip-ha-core</artifactId>
             <version>${mobicents.jain.sip.ha.version}</version>
@@ -204,7 +197,7 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4.4</version>
+			<version>1.4</version>
 			<scope>provided</scope>
 		</dependency>
 		

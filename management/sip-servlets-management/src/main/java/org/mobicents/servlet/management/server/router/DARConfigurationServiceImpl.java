@@ -23,7 +23,6 @@
 package org.mobicents.servlet.management.server.router;
 
 import java.io.ByteArrayInputStream;
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +30,10 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.management.MBeanServer;
-import javax.management.MBeanServerFactory;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 
+import org.apache.catalina.mbeans.MBeanUtils;
 import org.mobicents.servlet.management.client.router.DARConfigurationService;
 import org.mobicents.servlet.management.client.router.DARRoute;
 import org.mobicents.servlet.management.client.router.DARRouteNode;
@@ -45,16 +44,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class DARConfigurationServiceImpl extends RemoteServiceServlet implements DARConfigurationService {
 	
-	private static MBeanServer mserver;
-	static {
-		if( MBeanServerFactory.findMBeanServer(null).size() > 0 ) {
-            mserver = (MBeanServer) MBeanServerFactory.findMBeanServer(null).get(0);
-           
-        } else {
-            mserver = ManagementFactory.getPlatformMBeanServer();
-           
-        }
-	}
+	private static MBeanServer mserver = MBeanUtils.createServer();
 	
 	private ObjectName getApplicationDispatcher() {
 		try {

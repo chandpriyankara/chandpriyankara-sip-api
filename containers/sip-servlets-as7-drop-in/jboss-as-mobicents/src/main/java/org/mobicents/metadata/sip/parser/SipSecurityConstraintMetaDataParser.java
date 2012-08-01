@@ -28,7 +28,6 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.servlet.AuthConstraintMetaDataParser;
 import org.jboss.metadata.parser.servlet.UserDataConstraintMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.property.PropertyReplacers;
 import org.mobicents.metadata.sip.spec.Attribute;
 import org.mobicents.metadata.sip.spec.Element;
 import org.mobicents.metadata.sip.spec.SipResourceCollectionsMetaData;
@@ -78,12 +77,10 @@ public class SipSecurityConstraintMetaDataParser extends MetaDataElementParser {
                     sipSecurityConstraint.setProxyAuthentication(EmptyMetaDataParser.parse(reader));
                     break;
                 case AUTH_CONSTRAINT:
-                    // FIXME: 7.1.2.Final - setup proper ProperlyReplacer
-                    sipSecurityConstraint.setAuthConstraint(AuthConstraintMetaDataParser.parse(reader, PropertyReplacers.noop()));
+                    sipSecurityConstraint.setAuthConstraint(AuthConstraintMetaDataParser.parse(reader));
                     break;
                 case USER_DATA_CONSTRAINT:
-                    // FIXME: 7.1.2.Final - setup proper ProperlyReplacer
-                    sipSecurityConstraint.setUserDataConstraint(UserDataConstraintMetaDataParser.parse(reader, PropertyReplacers.noop()));
+                    sipSecurityConstraint.setUserDataConstraint(UserDataConstraintMetaDataParser.parse(reader));
                     break;
                 default:
                     throw unexpectedElement(reader);

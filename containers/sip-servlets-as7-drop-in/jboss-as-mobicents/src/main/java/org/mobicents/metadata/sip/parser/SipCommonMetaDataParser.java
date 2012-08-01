@@ -39,7 +39,6 @@ import org.jboss.metadata.parser.servlet.LocaleEncodingsMetaDataParser;
 import org.jboss.metadata.parser.servlet.ServletMetaDataParser;
 import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.spec.ListenerMetaData;
 import org.mobicents.metadata.sip.spec.Element;
 import org.mobicents.metadata.sip.spec.SipMetaData;
@@ -85,8 +84,7 @@ public class SipCommonMetaDataParser extends MetaDataElementParser {
                     listeners = new ArrayList<ListenerMetaData>();
                     smd.setListeners(listeners);
                 }
-                // FIXME: 7.1.2.Final - setup proper ProperlyReplacer
-                listeners.add(ListenerMetaDataParser.parse(reader, PropertyReplacers.noop()));
+                listeners.add(ListenerMetaDataParser.parse(reader));
                 break;
             case SERVLET_SELECTION:
                 smd.setServletSelection(SipServletSelectionMetaDataParser.parse(reader));
@@ -97,8 +95,7 @@ public class SipCommonMetaDataParser extends MetaDataElementParser {
                     servlets = new SipServletsMetaData();
                     smd.setSipServlets(servlets);
                 }
-                // FIXME: 7.1.2.Final - setup proper ProperlyReplacer
-                servlets.add(ServletMetaDataParser.parse(reader, PropertyReplacers.noop()));
+                servlets.add(ServletMetaDataParser.parse(reader));
                 break;
             case PROXY_CONFIG:
                 smd.setProxyConfig(ProxyConfigMetaDataParser.parse(reader));
@@ -106,8 +103,7 @@ public class SipCommonMetaDataParser extends MetaDataElementParser {
             case SESSION_CONFIG:
                  if (smd.getSessionConfig() != null)
                      throw new XMLStreamException("Multiple session-config elements detected", reader.getLocation());
-                 // FIXME: 7.1.2.Final - setup proper ProperlyReplacer
-                 smd.setSessionConfig(SessionConfigMetaDataParser.parse(reader, PropertyReplacers.noop()));
+                 smd.setSessionConfig(SessionConfigMetaDataParser.parse(reader));
                  break;
             case SECURITY_CONSTRAINT:
                 List<SipSecurityConstraintMetaData> sipSecurityConstraints = smd.getSipSecurityConstraints();
@@ -137,12 +133,10 @@ public class SipCommonMetaDataParser extends MetaDataElementParser {
                     messageDestinations = new MessageDestinationsMetaData();
                     smd.setMessageDestinations(messageDestinations);
                 }
-                // FIXME: 7.1.2.Final - setup proper ProperlyReplacer
-                messageDestinations.add(MessageDestinationMetaDataParser.parse(reader, PropertyReplacers.noop()));
+                messageDestinations.add(MessageDestinationMetaDataParser.parse(reader));
                 break;
             case LOCALE_ENCODING_MAPPING_LIST:
-                // FIXME: 7.1.2.Final - setup proper ProperlyReplacer
-                smd.setLocalEncodings(LocaleEncodingsMetaDataParser.parse(reader, PropertyReplacers.noop()));
+                smd.setLocalEncodings(LocaleEncodingsMetaDataParser.parse(reader));
                 break;
             default:
                 return false;

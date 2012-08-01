@@ -31,7 +31,6 @@ import org.jboss.as.server.deployment.AttachmentKey;
  * The web server.
  *
  * @author Emanuel Muckenhuber
- * @author josemrecio@gmail.com
  */
 public interface SipServer {
 
