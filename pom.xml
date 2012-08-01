@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -10,13 +11,27 @@
 	<artifactId>sip-servlets-bootstrap</artifactId>
 	<version>6.1.2-TelScale-SNAPSHOT</version>
 	<packaging>pom</packaging>	
+=======
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>mobicents-parent</artifactId>
+		<groupId>org.mobicents</groupId>
+		<version>2.23-SNAPSHOT</version>
+	</parent>
+	<groupId>org.mobicents.servlet.sip</groupId>
+	<artifactId>sip-servlets-bootstrap</artifactId>
+	<version>1.8.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+>>>>>>> issue-136
 
 	<name>Mobicents Sip Servlets</name>
 	<description>Mobicents SIP Servlets</description>
 	<url>http://code.google.com/p/sipservlets/</url>
 
 	<ciManagement>
-		<system>Hudson</system>
+		<system>Jenkins</system>
 		<url>https://mobicents.ci.cloudbees.com/job/Mobicents-SipServlets-Testsuite/</url>
 	</ciManagement>
 
@@ -71,31 +86,38 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<scm>
 		<connection>scm:git:https://code.google.com/p/sipservlets/</connection>
 		<developerConnection>scm:git:https://code.google.com/p/sipservlets/</developerConnection>
 		<url>https://code.google.com/p/sipservlets/</url>
 	</scm>
 
-	<modules>		
+	<modules>
 		<module>sip-servlets-spec</module>
-		<module>sip-servlets-client</module>		
+		<module>sip-servlets-client</module>
 		<module>sip-servlets-jruby</module>
 		<module>sip-servlets-core-api</module>
 		<module>sip-servlets-impl</module>
 		<module>sip-servlets-application-router</module>
-		<module>sip-servlets-annotations</module>		
+		<module>sip-servlets-annotations</module>
 	</modules>
-	
+
 	<properties>
 		<mobicents.tools.mavenplugin.eclipse.version>1.0.0.FINAL</mobicents.tools.mavenplugin.eclipse.version>
+<<<<<<< HEAD
 		<mobicents.cluster.version>6.1.1.GA-TelScale</mobicents.cluster.version>
 		<mobicents.balancer.version>6.1.1.GA-TelScale</mobicents.balancer.version>
 		<mobicents.jain.sip.ha.version>6.1.1.GA-TelScale</mobicents.jain.sip.ha.version>
 		<mobicents.jain.sip.ext.version>6.1.1.GA-TelScale</mobicents.jain.sip.ext.version>		
+=======
+		<mobicents.cluster.version>1.13.1.FINAL</mobicents.cluster.version>
+		<mobicents.balancer.version>1.5.0.FINAL</mobicents.balancer.version>
+		<mobicents.jain.sip.ha.version>1.3.1.FINAL</mobicents.jain.sip.ha.version>
+		<mobicents.jain.sip.ext.version>1.1</mobicents.jain.sip.ext.version>
+>>>>>>> issue-136
 	</properties>
-	
+
 	<dependencies>
 		<!-- test dependencies -->
 		<dependency>
@@ -103,22 +125,21 @@
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
-	<plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-release-plugin</artifactId>
-		<configuration>
-			<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-			<preparationGoals>clean install</preparationGoals>
-			<autoVersionSubmodules>true</autoVersionSubmodules>							
-			<arguments>-Dmaven.test.skip</arguments>                       	
-		</configuration>
-	</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+					<preparationGoals>clean install</preparationGoals>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<arguments>-Dmaven.test.skip</arguments>
+				</configuration>
+			</plugin>
 
-		
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -128,25 +149,34 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>			
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>2.0-beta-6</version>									
+				<version>2.0-beta-6</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
+<<<<<<< HEAD
    				<groupId>org.mobicents.tools</groupId>
     				<version>${mobicents.tools.mavenplugin.eclipse.version}</version>
+=======
+				<groupId>org.mobicents.tools</groupId>
+				<version>${mobicents.tools.mavenplugin.eclipse.version}</version>
+>>>>>>> issue-136
 				<inherited>false</inherited>
 				<executions />
-				<configuration>				
-					<!--generateProjectsForModules>true</generateProjectsForModules-->	
+				<configuration>
+					<!--generateProjectsForModules>true</generateProjectsForModules -->
 					<resolveTransitiveDependencies>true</resolveTransitiveDependencies>
 					<eclipseProjectName>sip-servlets-bootstrap</eclipseProjectName>
 				</configuration>
 			</plugin>
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> issue-136
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4.1</version>
@@ -163,12 +193,17 @@
 					</filesets>
 				</configuration>
 			</plugin>
+<<<<<<< HEAD
 		</plugins>		
+=======
+
+		</plugins>
+>>>>>>> issue-136
 	</build>
 	<profiles>
-		<profile>			
-			<id>site</id>		
-			<build>			
+		<profile>
+			<id>site</id>
+			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -179,7 +214,9 @@
 								<phase>site</phase>
 								<configuration>
 									<tasks>
-										<copy verbose="true" file="${project.build.directory}/site/index.html" tofile="${project.build.directory}/site/products_sip_servlets.html" />
+										<copy verbose="true"
+											file="${project.build.directory}/site/index.html"
+											tofile="${project.build.directory}/site/products_sip_servlets.html" />
 									</tasks>
 								</configuration>
 								<goals>
@@ -188,21 +225,22 @@
 							</execution>
 						</executions>
 					</plugin>
-        				<plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-release-plugin</artifactId>
 						<configuration>
 							<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
 							<preparationGoals>clean install</preparationGoals>
-							<autoVersionSubmodules>true</autoVersionSubmodules>							
-							<arguments>-Dmaven.test.skip</arguments>                       	
+							<autoVersionSubmodules>true</autoVersionSubmodules>
+							<arguments>-Dmaven.test.skip</arguments>
 						</configuration>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
-		<profile>			
+		<profile>
 			<id>release</id>
+<<<<<<< HEAD
 			<modules>					
 				<module>docs</module>				
 				<module>management/sip-servlets-management</module>
@@ -212,14 +250,25 @@
 			<properties>
 				 <maven.test.skip>true</maven.test.skip>
 				<jboss4.version>4.2.3.GA</jboss4.version>
+=======
+			<modules>
+				<module>management/sip-servlets-management</module>
+				<module>sip-servlets-examples</module>
+				<module>sip-servlets-test-suite</module>
+				<module>docs</module>
+			</modules>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+>>>>>>> issue-136
 			</properties>
 		</profile>
-		<profile>			
+		<profile>
 			<id>tomcat</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+<<<<<<< HEAD
 				<tomcat.version>6.0.35</tomcat.version>	
 				<jboss4.version>4.2.3.GA</jboss4.version>
 			</properties>			
@@ -227,28 +276,15 @@
 				<module>containers/sip-servlets-catalina</module>						
 				<module>containers/sip-servlets-tomcat-jboss4</module>				
 			</modules>	
-			<dependencies>
-				<!-- j2ee dependencies -->
-				<dependency>
-					<groupId>javax.servlet</groupId>
-					<artifactId>servlet-api</artifactId>
-					<version>2.5</version>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>		
-		</profile>		
-		<profile>			
-			<id>jboss-5</id>			
-			<modules>		
-				<module>containers/sip-servlets-catalina</module>				
-				<module>containers/sip-servlets-jboss5-metadata</module>	
-				<module>containers/sip-servlets-jboss5-deployer</module>					
-				<module>containers/sip-servlets-jboss5-ha-server-cache</module>
-				<module>containers/sip-servlets-jboss5</module>				
+=======
+				<tomcat.version>6.0.35</tomcat.version>
+				<jboss4.version>4.2.3.GA</jboss4.version>
+			</properties>
+			<modules>
+				<module>containers/sip-servlets-catalina</module>
+				<module>containers/sip-servlets-tomcat-jboss4</module>
 			</modules>
-			<properties>
-				<tomcat.version>6.0.35</tomcat.version>	
-			</properties>	
+>>>>>>> issue-136
 			<dependencies>
 				<!-- j2ee dependencies -->
 				<dependency>
@@ -257,18 +293,46 @@
 					<version>2.5</version>
 					<scope>provided</scope>
 				</dependency>
-			</dependencies>			
+			</dependencies>
 		</profile>
-		<profile>			
-			<id>tomcat-distro</id>			
-			<modules>				
-				<module>containers/sip-servlets-catalina</module>				
-				<module>containers/sip-servlets-tomcat-jboss4</module>				
+		<profile>
+			<id>jboss-5</id>
+			<modules>
+				<module>containers/sip-servlets-catalina</module>
+				<module>containers/sip-servlets-jboss5-metadata</module>
+				<module>containers/sip-servlets-jboss5-deployer</module>
+				<module>containers/sip-servlets-jboss5-ha-server-cache</module>
+				<module>containers/sip-servlets-jboss5</module>
 			</modules>
 			<properties>
+				<tomcat.version>6.0.35</tomcat.version>
+			</properties>
+			<dependencies>
+				<!-- j2ee dependencies -->
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+					<version>2.5</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>tomcat-distro</id>
+			<modules>
+				<module>containers/sip-servlets-catalina</module>
+				<module>containers/sip-servlets-tomcat-jboss4</module>
+			</modules>
+			<properties>
+<<<<<<< HEAD
 				<tomcat.version>6.0.35</tomcat.version>	
 				<jboss4.version>4.2.3.GA</jboss4.version>
 			</properties>	
+=======
+				<tomcat.version>6.0.35</tomcat.version>
+				<jboss4.version>4.2.3.GA</jboss4.version>
+			</properties>
+>>>>>>> issue-136
 			<dependencies>
 				<!-- j2ee dependencies -->
 				<dependency>
@@ -277,20 +341,20 @@
 					<version>2.5</version>
 					<scope>provided</scope>
 				</dependency>
-			</dependencies>			
+			</dependencies>
 		</profile>
-		<profile>			
-			<id>jboss-5-distro</id>			
+		<profile>
+			<id>jboss-5-distro</id>
 			<modules>
-				<module>containers/sip-servlets-catalina</module>				
-				<module>containers/sip-servlets-jboss5-metadata</module>	
-				<module>containers/sip-servlets-jboss5-deployer</module>					
+				<module>containers/sip-servlets-catalina</module>
+				<module>containers/sip-servlets-jboss5-metadata</module>
+				<module>containers/sip-servlets-jboss5-deployer</module>
 				<module>containers/sip-servlets-jboss5-ha-server-cache</module>
-				<module>containers/sip-servlets-jboss5</module>				
+				<module>containers/sip-servlets-jboss5</module>
 			</modules>
 			<properties>
-				<tomcat.version>6.0.35</tomcat.version>	
-			</properties>	
+				<tomcat.version>6.0.35</tomcat.version>
+			</properties>
 			<dependencies>
 				<!-- j2ee dependencies -->
 				<dependency>
@@ -299,17 +363,21 @@
 					<version>2.5</version>
 					<scope>provided</scope>
 				</dependency>
-			</dependencies>			
+			</dependencies>
 		</profile>
-		<profile>			
-			<id>tomcat-7</id>			
+		<profile>
+			<id>tomcat-7</id>
 			<modules>
-				<module>containers/sip-servlets-catalina-7</module>			
+				<module>containers/sip-servlets-catalina-7</module>
 				<module>containers/tomcat-7</module>
 			</modules>
 			<properties>
 				<tomcat-7.version>7.0.27</tomcat-7.version>
+<<<<<<< HEAD
 			</properties>	
+=======
+			</properties>
+>>>>>>> issue-136
 			<dependencies>
 				<!-- j2ee dependencies -->
 				<dependency>
@@ -318,17 +386,21 @@
 					<version>6.0</version>
 					<scope>provided</scope>
 				</dependency>
-			</dependencies>	
+			</dependencies>
 		</profile>
 		<profile>
 			<id>tomcat-7-distro</id>
 			<modules>
-				<module>containers/sip-servlets-catalina-7</module>			
+				<module>containers/sip-servlets-catalina-7</module>
 				<module>containers/tomcat-7</module>
 			</modules>
 			<properties>
 				<tomcat-7.version>7.0.27</tomcat-7.version>
+<<<<<<< HEAD
 			</properties>	
+=======
+			</properties>
+>>>>>>> issue-136
 			<dependencies>
 				<!-- j2ee dependencies -->
 				<dependency>
@@ -337,19 +409,16 @@
 					<version>6.0</version>
 					<scope>provided</scope>
 				</dependency>
-			</dependencies>	
+			</dependencies>
 		</profile>
 		<profile>
 			<id>as7</id>
 			<modules>
 				<module>containers/sip-servlets-as7</module>
 				<module>containers/sip-servlets-as7-drop-in/jboss-as-mobicents</module>
-				<module>containers/sip-servlets-as7-drop-in/build-mobicents-modules</module>												
+				<module>containers/sip-servlets-as7-drop-in/build-mobicents-modules</module>
 			</modules>
-			<properties>
-				<!-- keep in sync with jboss-as/pom.xml -->
-				<!-- <version.org.jboss.web>7.0.10.Final</version.org.jboss.web> -->
-				<!--jboss.version>7.1.1.Final</jboss.version-->
+			<properties>				
 				<version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Final</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
 			</properties>
 			<dependencies>
@@ -360,13 +429,13 @@
 					<version>${version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec}</version>
 					<scope>provided</scope>
 				</dependency>
-			</dependencies>	
+			</dependencies>
 		</profile>
-		<profile>			
+		<profile>
 			<id>docs</id>
 			<modules>
-				<module>docs</module>				
-			</modules>			
+				<module>docs</module>
+			</modules>
 		</profile>
 	</profiles>
 	<!-- repositories -->
@@ -398,18 +467,18 @@
 		  </snapshots>		  		  
 		</repository>
 		<repository>
-			  <id>mobicents-public-repository-group</id>
-			  <name>Mobicens Public Maven Repository Group</name>
-			  <url>https://oss.sonatype.org/content/groups/public</url>
-			  <layout>default</layout>
-			  <releases>
-			    <enabled>true</enabled>
-			    <updatePolicy>never</updatePolicy>
-			  </releases>
-			  <snapshots>
-			    <enabled>true</enabled>
-			    <updatePolicy>never</updatePolicy>
-			  </snapshots>
+			<id>mobicents-public-repository-group</id>
+			<name>Mobicens Public Maven Repository Group</name>
+			<url>https://oss.sonatype.org/content/groups/public</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
 		</repository>
 		<repository>
 			<id>jboss-public-repository-group</id>
@@ -453,12 +522,12 @@
 				<updatePolicy>never</updatePolicy>
 			</snapshots>
 		</repository>
-	    <repository>
-		<id>java.net-Public</id>
-		<name>Maven Java Net Snapshots and Releases</name>
-		<!--url>https://maven.java.net/content/groups/public/</url-->
-		<url>http://download.java.net/maven/2/</url>
-		<releases>
+		<repository>
+			<id>java.net-Public</id>
+			<name>Maven Java Net Snapshots and Releases</name>
+			<!--url>https://maven.java.net/content/groups/public/</url -->
+			<url>http://download.java.net/maven/2/</url>
+			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>never</updatePolicy>
 			</releases>
@@ -466,7 +535,7 @@
 				<enabled>true</enabled>
 				<updatePolicy>never</updatePolicy>
 			</snapshots>
-	    </repository>		
+		</repository>
 		<repository>
 			<id>backup.repository.jboss.org</id>
 			<name>JBoss Repository Backup</name>

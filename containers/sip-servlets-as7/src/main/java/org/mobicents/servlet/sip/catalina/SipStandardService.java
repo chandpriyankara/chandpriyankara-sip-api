@@ -259,7 +259,7 @@ public class SipStandardService extends StandardService implements CatalinaSipSe
 				darConfigurationFileLocation = "file:///" + catalinaBase.replace(File.separatorChar, '/') + "/" + darConfigurationFileLocation;
 			}
 			System.setProperty("javax.servlet.sip.dar", darConfigurationFileLocation);
- 		}		
+ 		}
 		super.initialize();
 		sipApplicationDispatcher.setDomain(this.getName());
 		if(baseTimerInterval < 1) {
@@ -434,7 +434,7 @@ public class SipStandardService extends StandardService implements CatalinaSipSe
 				sipStackProperties.setProperty("gov.nist.javax.sip.LOG_MESSAGE_CONTENT",
 						"true");
 				sipStackProperties.setProperty("gov.nist.javax.sip.TRACE_LEVEL",
-						"32");
+						"LOG4J");
 				sipStackProperties.setProperty(DEBUG_LOG_STACK_PROP,
 						catalinaBase + "/" + "mss-jsip-" + getName() +"-debug.txt");
 				sipStackProperties.setProperty(SERVER_LOG_STACK_PROP,

@@ -3,7 +3,11 @@
 	<parent>
 		<groupId>org.mobicents.servlet.sip</groupId>
 		<artifactId>sip-servlets-bootstrap</artifactId>
+<<<<<<< HEAD
 		<version>6.1.2-TelScale-SNAPSHOT</version>
+=======
+		<version>1.8.0-SNAPSHOT</version>
+>>>>>>> issue-136
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<groupId>org.mobicents.servlet.sip.containers</groupId>
@@ -16,17 +20,29 @@
 		<dependency>
 			<groupId>org.mobicents.servlet.sip</groupId>
 			<artifactId>sip-servlets-spec</artifactId>
+<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>			
+=======
+			<version>1.8.0-SNAPSHOT</version>			
+>>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>org.mobicents.servlet.sip</groupId>
 			<artifactId>sip-servlets-impl</artifactId>
+<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>			
+=======
+			<version>1.8.0-SNAPSHOT</version>			
+>>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>org.mobicents.servlet.sip</groupId>
 			<artifactId>sip-servlets-core-api</artifactId>
+<<<<<<< HEAD
 			<version>6.1.2-TelScale-SNAPSHOT</version>			
+=======
+			<version>1.8.0-SNAPSHOT</version>			
+>>>>>>> issue-136
 		</dependency>
 		<dependency>
 			<groupId>javax.sip</groupId>

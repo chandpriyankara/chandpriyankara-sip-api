@@ -96,7 +96,11 @@ public class DistributedCacheConvergedSipManagerDelegate<T extends OutgoingDistr
 	
 	private void createCacheListeners() {
 		// do here the creation of the root node for holding sip session data, cause it may fail if concurrently created on demand (storing sessions) 
+<<<<<<< HEAD:containers/sip-servlets-jboss5-ha-server-cache/src/main/java/org/jboss/web/tomcat/service/session/distributedcache/impl/jbc/sip/DistributedCacheConvergedSipManagerDelegate.java
 		jBossCacheService.getCache().getRoot().addChild(getSipApplicationSessionParentFqn(jBossCacheService.getCombinedPath()));
+=======
+		jBossCacheService.getCache().getRoot().addChild(getSipApplicationSessionParentFqn(jBossCacheService.combinedPath_));
+>>>>>>> issue-136:containers/sip-servlets-jboss5-ha-server-cache/src/main/java/org/jboss/web/tomcat/service/session/distributedcache/impl/jbc/DistributedCacheConvergedSipManagerDelegate.java
 		
 		sipCacheListener_ = new SipCacheListener(
 				jBossCacheService.getCacheWrapper(), manager, jBossCacheService.getCombinedPath(),

@@ -6,7 +6,11 @@
 	<parent>
 		<groupId>org.mobicents.servlet.sip.docs</groupId>
 		<artifactId>sip-servlets-docs</artifactId>
+<<<<<<< HEAD
 		<version>6.1.2-TelScale-SNAPSHOT</version>
+=======
+		<version>1.8.0-SNAPSHOT</version>
+>>>>>>> issue-136
 	</parent>
 	
 	<artifactId>sip-servlets-docs-sources</artifactId>
