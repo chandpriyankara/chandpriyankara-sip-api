@@ -748,7 +748,7 @@ outboundProxy=&quot;127.0.0.1:5500&quot;
       <title>IP Load Balancers</title>
       <para>An IP load-balancer is a network appliance that distributes traffic to an application server (or actual servers) using a  load-balancing algorithm.  IP load-balancing is often used when the other load-balancers&apos; capacity is exceeded and can not scale further without hardware upgrades.</para>
       <para>Routing decisions are made  based on OSI Layer 2, 3 or 4 data. This type of load balancer only examines low-level TCP, UDP or ethernet packet structures including MAC addresses, IP addresses, ports, and protocol types (TCP or UDP or other). </para>
-      <para>An IP  load balancer never reads the payload of the TCP/IP packets and therefore never parses SIP or HTTP (or any protocol above OSI Layer 4).  Because an IP load balancing device is not SIP or HTTP aware in any way, it give better performance than <literal>mod_jk</literal> or the &SHORT_PLATFORM_NAME; SIP load-balancer.
+      <para>An IP  load balancer never reads the payload of the TCP/IP packets and therefore never parses SIP or HTTP (or any protocol above OSI Layer 4).  Because an IP load balancing device is not SIP or HTTP aware in any way, it gives better performance than <literal>mod_jk</literal> or the &SHORT_PLATFORM_NAME; SIP load-balancer.
 
 </para>
     </section>
@@ -809,7 +809,7 @@ useStaticAddress=&quot;true&quot;/&gt;
         <varlistentry>
           <term>org.mobicents.tools.sip.balancer.CallIDAffinityBalancerAlgorithm </term>
           <listitem>
-            <para>This algorithm is not distributable. It selects nodes randomly to serve a give Call-ID extracted from the requests and responses. It keeps a map with  <literal>Call-ID -&gt; nodeId</literal> associations and this map is not shared with other load balancers which will cause them to make different decisions. For HTTP it behaves like apache.</para>
+            <para>This algorithm is not distributable. It selects nodes randomly to serve a given Call-ID extracted from the requests and responses. It keeps a map with  <literal>Call-ID -&gt; nodeId</literal> associations and this map is not shared with other load balancers which will cause them to make different decisions. For HTTP it behaves like apache.</para>
           </listitem>
         </varlistentry>
         <varlistentry id="sslb-binary-SIP_Load_Balancer-Configuration_Properties_File_1">
