@@ -1,6 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
+ * TeleStax, Open Source Cloud Communications  Copyright 2012. 
+ * and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -2470,7 +2470,7 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
 		if(sipApplicationSessionImpl != null) {
 			applicationSessionKey = sipApplicationSessionImpl.getKey();
 		} else {
-			applicationSessionKey = SessionManagerUtil.getSipApplicationSessionKey(key.getApplicationName(), key.getApplicationSessionId());
+			applicationSessionKey = SessionManagerUtil.getSipApplicationSessionKey(key.getApplicationName(), key.getApplicationSessionId(), null);
 		}
 		if(logger.isDebugEnabled()) {
 			logger.debug("load sip session " + key + ", create = " + create + " sip app session = "+ applicationSessionKey);
@@ -3525,7 +3525,7 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
 	 */
 	public void notifyRemoteSipApplicationSessionInvalidation(String realId) {
 		// Remove the session from our local map
-		SipApplicationSessionKey key = new SipApplicationSessionKey(realId, applicationName);
+		SipApplicationSessionKey key = new SipApplicationSessionKey(realId, applicationName, null);
 		ClusteredSipApplicationSession<? extends OutgoingDistributableSessionData> session = (ClusteredSipApplicationSession)sipManagerDelegate
 				.removeSipApplicationSession(key);
 		if (session == null) {
@@ -3693,7 +3693,7 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
 	 */
 	public void notifySipApplicationSessionLocalAttributeModification(
 			String realId) {
-		SipApplicationSessionKey key = new SipApplicationSessionKey(realId, applicationName);
+		SipApplicationSessionKey key = new SipApplicationSessionKey(realId, applicationName, null);
 		ClusteredSipApplicationSession<? extends OutgoingDistributableSessionData> session = (ClusteredSipApplicationSession) sipManagerDelegate
 				.getSipApplicationSession(key, false);
 		if (session != null) {
@@ -3753,7 +3753,7 @@ public class JBossCacheSipManager<O extends OutgoingDistributableSessionData> ex
 			String realId, String dataOwner, int distributedVersion,
 			long timestamp, DistributableSessionMetadata metadata) {
 		boolean updated = true;
-		SipApplicationSessionKey key = new SipApplicationSessionKey(realId, applicationName);
+		SipApplicationSessionKey key = new SipApplicationSessionKey(realId, applicationName, null);
 		
 		ClusteredSipApplicationSession<? extends OutgoingDistributableSessionData> session = findLocalSipApplicationSession(
 				key, false);
