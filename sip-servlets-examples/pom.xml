@@ -96,6 +96,32 @@
 
 	<!-- repositories -->
 	<repositories>
+		 <repository>
+		  <id>telscale-releases-repository</id>
+		  <name>TelScale Releases Repository</name>
+		  <url>http://telestax.artifactoryonline.com/telestax/releases</url>
+		  <releases>
+		    <enabled>true</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </releases>
+		  <snapshots>
+		    <enabled>false</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </snapshots>		  		  
+		</repository>
+		<repository>
+		  <id>telscale-snapshots-repository</id>
+		  <name>TelScale Snapshots Repository</name>
+		  <url>http://telestax.artifactoryonline.com/telestax/snapshots</url>
+		  <releases>
+		    <enabled>false</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </releases>
+		  <snapshots>
+		    <enabled>true</enabled>
+		    <updatePolicy>never</updatePolicy>
+		  </snapshots>		  		  
+		</repository>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
