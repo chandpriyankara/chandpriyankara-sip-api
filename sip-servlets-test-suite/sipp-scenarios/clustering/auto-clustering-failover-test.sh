@@ -621,4 +621,5 @@ cat result.txt
 
 ./auto-generate-junit-test-report.sh result.txt report.xml
 
+echo "exit code $EXIT_CODE"
 exit $EXIT_CODE
