@@ -1,6 +1,6 @@
 #!/bin/sh
 export pid=$1
-export killed="no"
+export killed = "no"
 
 echo "Trying Killing script $2 child process with parent pid = $pid"
 
@@ -12,10 +12,10 @@ do
   sleep 1 # give some time for the clean shutdown to reach out
   echo "Hard Killing script $2 child process $child because parent pid = $pid"
   kill -9 $child # kill it immediately without wasting more time
-  export killed="yes"
+  killed = "yes"
 done
 
-if [ "no" == $killed ]; then
+if [ "no" = "$killed" ]; then
   echo "The app server is not dead? We will sleep. We must raise error here, because this server should have been dead."
   sleep 10
 fi
