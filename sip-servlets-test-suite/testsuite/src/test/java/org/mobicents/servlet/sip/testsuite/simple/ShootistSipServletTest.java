@@ -756,7 +756,7 @@ public class ShootistSipServletTest extends SipServletTestCase {
 		ContactHeader contactHeader = (ContactHeader) receiver.getRegisterReceived().getHeader(ContactHeader.NAME);
 		assertNotNull(contactHeader);	
 		assertTrue(((SipURI)contactHeader.getAddress().getURI()).toString().contains("sip:"));
-		assertTrue(((SipURI)contactHeader.getAddress().getURI()).toString().contains("5072"));
+		assertTrue(((SipURI)contactHeader.getAddress().getURI()).toString().contains("5080"));
 		assertTrue(((SipURI)contactHeader.getAddress().getURI()).toString().toLowerCase().contains("transport=tls"));
 	}
 	
