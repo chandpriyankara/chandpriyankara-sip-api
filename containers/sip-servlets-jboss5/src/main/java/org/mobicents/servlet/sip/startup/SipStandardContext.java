@@ -1128,13 +1128,13 @@ public class SipStandardContext extends StandardContext implements CatalinaSipCo
      */
 	public void exitSipAppHa(MobicentsSipServletRequest request, MobicentsSipServletResponse response, boolean batchStarted) {		
 		if (getDistributable() && hasDistributableManager) {
-			if(logger.isInfoEnabled()) {
+			if(logger.isDebugEnabled()) {
 				if(request != null) {
-					logger.info("We are now after the servlet invocation for request " + request + ", We replicate no matter what " );
+					logger.debug("We are now after the servlet invocation for request " + request + ", We replicate no matter what " );
 				} else if (response != null) {
-					logger.info("We are now after the servlet invocation for request " + response + ", We replicate no matter what " );
+					logger.debug("We are now after the servlet invocation for request " + response + ", We replicate no matter what " );
 				} else {
-					logger.info("We are now after the servlet invocation, We replicate no matter what " );
+					logger.debug("We are now after the servlet invocation, We replicate no matter what " );
 				}
 			}
 			try {

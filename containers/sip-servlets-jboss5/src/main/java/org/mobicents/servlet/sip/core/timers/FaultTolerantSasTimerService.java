@@ -133,8 +133,8 @@ public class FaultTolerantSasTimerService implements ClusteredSipApplicationSess
 		if(scheduledExecutor != null) {
 			scheduledExecutor.shutdownNow();
 		}		
-		if(logger.isInfoEnabled()) {
-			logger.info("Stopped Sip Application Session Expiration Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());
+		if(logger.isDebugEnabled()) {
+			logger.debug("Stopped Sip Application Session Expiration Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());
 		}
 	}
 	
@@ -154,8 +154,8 @@ public class FaultTolerantSasTimerService implements ClusteredSipApplicationSess
 		// we need to start the scheduler upon init so that the local listener gets registered and can failover timers
 		getScheduler();
 		started.set(true);
-		if(logger.isInfoEnabled()) {
-			logger.info("Started Sip Application Session Expiration Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());
+		if(logger.isDebugEnabled()) {
+			logger.debug("Started Sip Application Session Expiration Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());
 		}
 	}
 

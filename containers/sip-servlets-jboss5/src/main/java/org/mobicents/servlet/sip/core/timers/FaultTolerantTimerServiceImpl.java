@@ -204,8 +204,8 @@ public class FaultTolerantTimerServiceImpl implements ClusteredSipServletTimerSe
 			}
 			scheduledExecutor.stop();		
 		}		
-		if(logger.isInfoEnabled()) {
-			logger.info("Stopped Sip Servlets Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());			
+		if(logger.isDebugEnabled()) {
+			logger.debug("Stopped Sip Servlets Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());			
 		}
 	}
 	
@@ -214,8 +214,8 @@ public class FaultTolerantTimerServiceImpl implements ClusteredSipServletTimerSe
 		// we can't create it before because the mobicents cluster is not yet initialized
 		getScheduler();
 		started.set(true);
-		if(logger.isInfoEnabled()) {
-			logger.info("Started Sip Servlets Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());			
+		if(logger.isDebugEnabled()) {
+			logger.debug("Started Sip Servlets Timer Service for application " + ((SipContext)sipManager.getContainer()).getApplicationName());			
 		}
 	}
 
