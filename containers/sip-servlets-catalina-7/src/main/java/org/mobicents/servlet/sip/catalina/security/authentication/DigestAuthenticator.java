@@ -1,8 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * TeleStax, Open Source Cloud Communications.
+ * Copyright 2012 and individual contributors by the @authors tag. 
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -66,12 +64,6 @@ public class DigestAuthenticator
 
 
     // -------------------------------------------------------------- Constants
-
-    /**
-     * The MD5 helper object for this class.
-     */
-    static final MD5Encoder MD5_ECNODER = new MD5Encoder();
-
 
     /**
      * Descriptive information about this implementation.
@@ -276,7 +268,7 @@ public class DigestAuthenticator
         synchronized (md5Helper) {
             buffer = md5Helper.digest(a2.getBytes());
         }
-        String md5a2 = MD5_ECNODER.encode(buffer);
+        String md5a2 = MD5Encoder.encode(buffer);
 
         return (new CatalinaSipPrincipal(realm.authenticate(userName, response, nOnce, nc, cnonce, qop,
                                    realmName, md5a2)));
@@ -363,7 +355,7 @@ public class DigestAuthenticator
         synchronized (md5Helper) {
             buffer = md5Helper.digest(nOnceValue.getBytes());
         }
-        nOnceValue = MD5_ECNODER.encode(buffer);
+        nOnceValue = MD5Encoder.encode(buffer);
 
         return nOnceValue;
     }
@@ -414,7 +406,7 @@ public class DigestAuthenticator
 
         String authenticateHeader = "Digest realm=\"" + realmName + "\", "
             +  "qop=\"auth\", nonce=\"" + nOnce + "\", " + "opaque=\""
-            + MD5_ECNODER.encode(buffer) + "\"";
+            + MD5Encoder.encode(buffer) + "\"";
         
         // There are different headers for different types of auth
         if(response.getStatus() == 
@@ -504,7 +496,7 @@ public class DigestAuthenticator
         synchronized (md5Helper) {
             buffer = md5Helper.digest(nOnceValue.getBytes());
         }
-        String cnonce = MD5_ECNODER.encode(buffer);
+        String cnonce = MD5Encoder.encode(buffer);
 
         try {
             response = MessageDigestResponseAlgorithm.calculateResponse(
