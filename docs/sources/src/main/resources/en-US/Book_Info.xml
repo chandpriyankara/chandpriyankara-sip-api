@@ -14,7 +14,7 @@
 
 
 <para>
-This user guide will help you get a better understanding of &PLATFORM_NAME; SIP servlets and how they can be used in an enterprise context. The guide will cover how to quickly get started using JBOSS and Apache Tomcat containers. There are sample applications included for those who want to grasp how to build SIP applications. You will also learn how to use advanced features like clustering and failovers within the High Availability framework. Finally, monitoring and security will be explained.
+This user guide will help you get a better understanding of &PLATFORM_NAME; SIP servlets and how the container can be used in an enterprise context. The guide will cover how to  how to quickly get started with &PLATFORM_NAME; SIP servlets either on top of JBoss or Apache Tomcat containers. There are sample applications included for those who want to grasp how to build SIP applications. You will also learn how to use advanced features like High Availability through Clustering and Failover. Finally, monitoring and security will be explained.
 </para>
 
 <!--
