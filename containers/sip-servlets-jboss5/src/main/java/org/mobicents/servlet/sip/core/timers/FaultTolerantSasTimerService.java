@@ -33,6 +33,7 @@ import org.mobicents.servlet.sip.core.session.DistributableSipManager;
 import org.mobicents.servlet.sip.core.session.MobicentsSipApplicationSession;
 import org.mobicents.timers.FaultTolerantScheduler;
 import org.mobicents.timers.TimerTask;
+import org.mobicents.timers.TimerTaskData;
 import org.mobicents.timers.TimerTaskFactory;
 
 /**
@@ -99,10 +100,25 @@ public class FaultTolerantSasTimerService implements ClusteredSipApplicationSess
 	 */
 	public boolean cancel(SipApplicationSessionTimerTask expirationTimerTask) {
 		if(expirationTimerTask instanceof FaultTolerantSasTimerTask) {
-			TimerTask cancelledTask = getScheduler().cancel(((FaultTolerantSasTimerTask)expirationTimerTask).getData().getTaskID());
+			TimerTaskData timerData = ((FaultTolerantSasTimerTask) expirationTimerTask).getData();
+			if (timerData == null) {
+				if (logger.isDebugEnabled()) {
+					logger.debug("Task " + expirationTimerTask.getSipApplicationSession().getKey()
+							+ " couldn't be cancelled because timerData is null");
+				}
+				return false;
+			}
+			java.io.Serializable taskId = timerData.getTaskID();
+			if(logger.isTraceEnabled()) {
+				logger.trace("Trying to cancel Task with Task ID " + taskId + " on sip app session " + 
+							expirationTimerTask.getSipApplicationSession().getKey());
+			}
+			TimerTask cancelledTask = getScheduler().cancel(taskId); 
+//			TimerTask cancelledTask = getScheduler().cancel(((FaultTolerantSasTimerTask)expirationTimerTask).getData().getTaskID());
 			if(cancelledTask == null) {
 				if(logger.isDebugEnabled()) {
-					logger.debug("Task "+ expirationTimerTask.getSipApplicationSession().getKey() +" couldn't be cancelled because it was not found locally");
+					logger.debug("Task "+ expirationTimerTask.getSipApplicationSession().getKey() 
+							+ " couldn't be cancelled because it was not found locally");
 				}
 				return false;
 			}
