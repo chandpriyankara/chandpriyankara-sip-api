@@ -216,30 +216,6 @@
 		</dependency>
 	</dependencies>
 	
-	<repositories>
-		<repository>
-			<id>oddthesis.repo</id>
-			<name>Odd Thesis repository</name>
-			<url>http://repo.oddthesis.org/maven2/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>oddthesis.SNAPSHOT.repo</id>
-			<name>Odd Thesis SNAPSHOT repository</name>
-			<url>http://repo.oddthesis.org/maven2/SNAPSHOTS</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 	<build>
 		<plugins>		
 			<plugin>
