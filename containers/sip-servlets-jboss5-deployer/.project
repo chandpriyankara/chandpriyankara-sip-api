@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>sip-servlets-jboss-5-deployer</name>
-  <comment/>
-  <projects/>
+  <name>sip-servlets-jboss5-deployer</name>
+  <comment>Mobicents SIP Servlets. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects>
+    <project>sip-servlets-jboss5-metadata</project>
+    <project>sip-servlets-spec</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
-      <arguments/>
     </buildCommand>
   </buildSpec>
   <natures>
