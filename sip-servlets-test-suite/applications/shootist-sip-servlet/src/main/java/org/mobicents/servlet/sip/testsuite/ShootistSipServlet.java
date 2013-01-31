@@ -30,6 +30,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.sip.Address;
+import javax.servlet.sip.Parameterable;
 import javax.servlet.sip.ServletParseException;
 import javax.servlet.sip.ServletTimer;
 import javax.servlet.sip.SipApplicationSession;
