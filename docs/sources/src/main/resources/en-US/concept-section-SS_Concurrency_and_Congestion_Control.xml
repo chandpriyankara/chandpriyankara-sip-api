@@ -90,6 +90,15 @@
     <para>&PLATFORM_NAME; Sip Servlets currently provides the following  congestion
     control mechanisms:</para>
   </formalpara>
+  
+  <note>
+
+<title>Changing Congestion Control Settings </title>
+<para>
+All the settings and congifurations starting with gov.nist.javax.sip are located in the $JBOSS-HOME/standalone/configuration/mss-sip-stack.properties file. The section below will provide further details.
+</para>
+</note>
+  
   <itemizedlist>
     <listitem>
       <para>Congestion control is largely application-specific and it is implemented in a pipeline. 
@@ -99,21 +108,62 @@
         spam and flood DoS attacks to accumulate large backlog and render the server unresponsive. It also
          guranatees flood recovery time of 20 seconds or less, in the mean time retransmissions are
           already queuing so that normal SIP calls can continue without dropping them. After the request has passed the first 
-          queue it enters the SIP transaction layer where there is a customizable optional congestion control logic.
-          There is one packaged congestion control algorithm which can be enabled by setting the following property
-           <literal>gov.nist.javax.sip.SIP_MESSAGE_VALVE=gov.nist.javax.sip.stack.CongestionControlMessageValve</literal>.
-           For this algorithm you can set the limit value by the following property
-          <literal>gov.nist.javax.sip.MAX_SERVER_TRANSACTIONS=2000</literal>. 
-          You can also implement your own algorithm and change the class name in <literal>gov.nist.javax.sip.SIP_MESSAGE_VALVE</literal> to activate it.</para><para>
+          queue it enters the SIP transaction layer where there is a customizable optional congestion control logic.<br/>
           
+          There is one pre-packaged congestion control algorithm which can be enabled by setting the following property
+           <literal>gov.nist.javax.sip.SIP_MESSAGE_VALVE=org.mobicents.ext.javax.sip.congestion.CongestionControlMessageValve</literal>.
+           <br/>
+           This Congestion Control algrithm monitors at regular intervals whether or not the configured congestion control mechanisms have switched on or off.
+ 		   <br/>The following congestion control mechanisms are available :
+ 		    <variablelist>
+ 		    <varlistentry>
+		      <term>Memory</term>
+		      <listitem>
+		        <para>Monitor if the JVM Used Memory has crossed the <literal>org.mobicents.ext.javax.sip.congestion.MEMORY_THRESHOLD</literal> threshold or
+		         went back under <literal>org.mobicents.ext.javax.sip.congestion.BACK_TO_NORMAL_MEMORY_THRESHOLD</literal> threshold</para>
+		      </listitem>
+		    </varlistentry>
+		    <varlistentry>
+		      <term>CPU</term>
+		      <listitem>
+		        <para>Monitor if the Process Used CPU has crossed the <literal>org.mobicents.ext.javax.sip.congestion.CPU_THRESHOLD</literal> threshold
+		         or went back under <literal>org.mobicents.ext.javax.sip.congestion.BACK_TO_NORMAL_CPU_THRESHOLD</literal> threshold</para>
+		      </listitem>
+		    </varlistentry>
+		    <varlistentry>
+		      <term>Server Transactions</term>
+		      <listitem>
+		        <para>Monitor if the number of active Server Transactions has crossed the <literal>org.mobicents.ext.javax.sip.congestion.SERVER_TRANSACTIONS_THRESHOLD</literal> threshold or 
+		        went back under <literal>org.mobicents.ext.javax.sip.congestion.BACK_TO_NORMAL_SERVER_TRANSACTIONS_THRESHOLD</literal> threshold</para>
+		      </listitem>
+		    </varlistentry>
+		    <varlistentry>
+		      <term>Dialogs</term>
+		      <listitem>
+		        <para>Monitor if the number of active Dialogs has crossed the <literal>org.mobicents.ext.javax.sip.congestion.DIALOGS_THRESHOLD</literal> threshold or 
+		        went back under <literal>org.mobicents.ext.javax.sip.congestion.BACK_TO_NORMAL_DIALOGS_THRESHOLD</literal> threshold</para>
+		      </listitem>
+		    </varlistentry>
+		  </variablelist>
+
+		 <note>
+		
+		<title>Disabling specific Congestion Control Mechanisms </title>
+		<para>
+		Any congestion control mechanism can be disabled by setting their threshold properties to a negative value
+		</para>
+		</note>
+
+          You can also implement your own algorithm or extend the packaged one (if you need, by example, to add any header to the response generated back (like Retry-After Header) 
+          by overriding the org.mobicents.ext.javax.sip.congestion.CongestionControlMessageValve.modifyCongestionResponse(SIPResponse response)) 
+          and change the class name in <literal>gov.nist.javax.sip.SIP_MESSAGE_VALVE</literal> to activate it.</para><para>
+                   
           There is also another optional legacy congestion
            control stage with another queue where messages can be discarded based on dynamic parameters
             such as available JVM heap memory or number of messages in the queue. This method will be deprecated and is not recommended. All SIP messages which
              cannot be processed immediately are put
       into a queue, and  wait for either a free thread or for the lock
-      on their session to be released. The  size of the  SIP message
-      queue is a tunable parameter, which defaults to
-      <literal>1500</literal>.</para>
+      on their session to be released.</para>
     </listitem>
     <listitem>
       <para>If the SIP Message queue becomes full, the

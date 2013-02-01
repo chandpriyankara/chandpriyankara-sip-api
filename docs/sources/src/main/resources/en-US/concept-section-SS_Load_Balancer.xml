@@ -415,7 +415,8 @@ gov.nist.javax.sip.REENTRANT_LISTENER = true
               <para>The <literal>balancers</literal> attribute must contain a IP address (or list of addresses) of the SIP load balancer(s) to which heartbeat information will be sent.</para>
             </listitem>
             <listitem>
-              <para>The <literal>sipPathName</literal> attribute must contain the following value <literal>org.mobicents.ha</literal> to indicate that the server will be using the &PLATFORM_NAME; JAIN SIP HA SIP Stack which is an extension of the JAIN SIP Stack offering transparent replication.</para>
+              <para>The <literal>sipPathName</literal> attribute must contain the following value <literal>org.mobicents.ha</literal> to indicate that the server will be using the &PLATFORM_NAME; JAIN SIP HA SIP Stack which is an extension of the JAIN SIP Stack offering transparent replication.
+              If the server doesn't support any replication (Tomcat based), it is still possible to use the Load Balancer for load balancing only by setting the property to <literal>org.mobicents.ha.balancing.only</literal></para>
             </listitem>
           </itemizedlist>
         </step>
@@ -424,7 +425,7 @@ gov.nist.javax.sip.REENTRANT_LISTENER = true
           <title>Configure the <filename>mss-sip-stack.properties</filename> configuration file</title>          
           <itemizedlist>
             <listitem>
-              <para>The <literal>org.mobicents.ha.javax.sip.cache.MobicentsSipCache.cacheName</literal> property must contain the name of the cache that will be responsible for holding the replicated data of the SIP Stack layer (namely the established SIP dialog data). The value has to be one of the cache name present in the jboss-cache-manager-jboss-beans.xml file of the jboss-cache-manager JBoss Service of the container. The default value is <literal>standard-session-cache</literal></para>
+              <para>The <literal>org.mobicents.ha.javax.sip.cache.MobicentsSipCache.cacheName</literal> property must contain the name of the cache that will be responsible for holding the replicated data of the SIP Stack layer (namely the established SIP dialog data). The value has to be one of the cache name present in the jboss-cache-manager-jboss-beans.xml file of the jboss-cache-manager JBoss Service of the container. The default value is <literal>standard-session-cache</literal>. When used with above <literal>sipPathName</literal> havinga vale of <literal>org.mobicents.ha.balancing.only</literal>, this property is optional.</para>
             </listitem>    
 			<listitem>
 			    <para>The <literal>org.mobicents.ha.javax.sip.BALANCERS</literal> property must be configured with the list of load balancer IP address and internal ports. As an example, suppose a single &THIS.PLATFORM; SIP Load Balancer is running with IP <literal>192.168.0.1</literal> and internal port <literal>5065</literal>, the property would be set with value <literal>192.168.0.1:5065</literal>. To specify multiple balancers use <literal>;</literal> as separator. If this property is used the balancers attribute located in server.xml should not be used as it is a replacement for it.</para>
