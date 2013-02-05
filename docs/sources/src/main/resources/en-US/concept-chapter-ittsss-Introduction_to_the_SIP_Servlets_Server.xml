@@ -81,17 +81,19 @@ Mobicents SIP Servlets is lead by <ulink url="http://www.telestax.com/">TeleStax
 </section-->
 
  <para>
-  &PLATFORM_NAME;
-   SIP (Session Initiation Protocol) Servlets deliver a consistent, open platform on which to develop and deploy portable and distributed SIP and Java Enterprise Edition services. The &PLATFORM_NAME;
-   SIP Servlets Server is a <emphasis>certified</emphasis> implementation of the SIP Servlet v1.1 (JSR 289) specification that can run on top of either the JBoss Application Server or the Tomcat Servlet Container.</para>
-  <para>
-  &PLATFORM_NAME;
-   SIP Servlets for JBoss (&SHORT_PLATFORM_NAME; for JBoss) strives to develop interoperability standards between SIP Servlets and the Java Service Logic Execution Environment (JSLEE) so that applications can exploit the strengths of both. The JAIN-SIP Reference Implementation is leveraged as the SIP stack, and the &PLATFORM_NAME;
-   JAIN SLEE Server is used as the SLEE implementation.</para>
+  &PLATFORM_NAME; SIP Servlets is an Open Source SIP Application Server extending Java EE to enable rapid development and deployment of SIP and converged applications. &PLATFORM_NAME;
+  SIP  Servlets  is  a  fully  <emphasis>certified</emphasis> implementation of the SIP Servlet 1.1 (JSR  289) Specification.
+   
+   With  its  Carrier  Grade  Performance and  High  Availability Features,  &PLATFORM_NAME;  SIP
+Servlets is the SIP application server of choice for creating and deploying new innovative
+services  in  an  IMS  Architecture  or  for  enabling  Web  Applications  with  Real  Time
+Communications thus improving the time to market and reduced TCO over existing
+proprietary solutions to maximize your ARPU..</para>
+  
   <itemizedlist id="ittsss-Principal_and_new_features_of_SIP_Servlets">
     <title>Features of the &PLATFORM_NAME; SIP Servlets Server</title>
     <listitem>
-      <para>The first <emphasis>certified</emphasis> SIP Servlet v1.1 (JSR 289) implementation.</para>
+      <para>The first <emphasis>certified</emphasis> SIP Servlet v1.1 (JSR 289) Open Source Implementation.</para>
     </listitem>
     <listitem>
       <para>Carrier grade performance.</para>
