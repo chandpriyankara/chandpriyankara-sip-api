@@ -54,6 +54,7 @@ public class Click2DialSipServlet extends SipServlet implements SipApplicationSe
 	private static final String CONTENT_TYPE = "text/plain;charset=UTF-8";
 	@Resource
 	private SipFactory sipFactory;	
+	private boolean notification = true;
 	
 	public Click2DialSipServlet() {
 	}
@@ -266,9 +267,9 @@ public class Click2DialSipServlet extends SipServlet implements SipApplicationSe
 	}
 
 	public void sessionDestroyed(SipApplicationSessionEvent ev) {
-		logger.info("sip application session destroyed " +  ev.getApplicationSession());
+		logger.info("sip application session destroyed " +  ev.getApplicationSession() + " notification " + notification);
 //		SipFactory storedFactory = (SipFactory)ev.getApplicationSession().getAttribute("sipFactory");
-		if(sipFactory != null) {
+		if(sipFactory != null && notification) {
 			SipApplicationSession sipApplicationSession = sipFactory.createApplicationSession();
 			try {
 				SipServletRequest sipServletRequest = sipFactory .createRequest(
@@ -290,12 +291,17 @@ public class Click2DialSipServlet extends SipServlet implements SipApplicationSe
 	}
 
 	public void sessionExpired(SipApplicationSessionEvent ev) {
-		// TODO Auto-generated method stub
-		
+		logger.info("sip application session about to be destroyed " +  ev.getApplicationSession() + " notification " + ev.getApplicationSession().getAttribute("notification"));
+		if(ev.getApplicationSession().getAttribute("notification") != null) {
+			notification = false;
+		}
 	}
 
 	public void sessionReadyToInvalidate(SipApplicationSessionEvent ev) {
-		
+		logger.info("sip application session about to be destroyed " +  ev.getApplicationSession() + " notification " + ev.getApplicationSession().getAttribute("notification"));
+		if(ev.getApplicationSession().getAttribute("notification") != null) {
+			notification = false;
+		}
 	}
 
 	/**

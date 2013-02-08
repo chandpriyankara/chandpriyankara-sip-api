@@ -1,8 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * TeleStax, Open Source Cloud Communications.
+ * Copyright 2012 and individual contributors by the @authors tag. 
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -30,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.sip.SipURI;
@@ -215,6 +214,7 @@ public interface SipApplicationDispatcher extends SipListenerExt {
 	int getBackToNormalQueueSize();
 
 	ExecutorService getAsynchronousExecutor();
+	ScheduledExecutorService getAsynchronousScheduledExecutor();
 
 	void setSipStack(SipStack sipStack);
 	SipStack getSipStack();

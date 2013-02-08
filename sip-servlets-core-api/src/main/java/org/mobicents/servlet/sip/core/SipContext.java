@@ -1,6 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
+ * TeleStax, Open Source Cloud Communications  Copyright 2012. 
+ * and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -183,4 +183,12 @@ public interface SipContext {
 	// http://code.google.com/p/sipservlets/issues/detail?id=135
 	void enterSipContext();
 	void exitSipContext(ClassLoader oldClassLoader);
+	/**
+	 * Stop the Context GraceFully, ie the context will stop only when  there is no outstanding SIP or HTTP Sessions
+	 * @param timeToWait - the context will wait for the time specified in this parameter before forcefully killing
+	 * the remaining sessions (HTTP and SIP) for each application deployed, if a negative value is provided the context 
+	 * will wait until there is no remaining Session before shutting down
+	 */
+	void stopGracefully(long timeToWait);
+	boolean isStoppingGracefully();
 }

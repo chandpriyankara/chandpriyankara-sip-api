@@ -64,6 +64,11 @@ public class SipServletImpl extends StandardWrapper implements MobicentsSipServl
 	public void load() throws ServletException {
 		super.load();
 	}
+	
+	@Override
+	public void unload() throws ServletException {
+		super.unload();
+	}
 
 	/**
 	 * @return the icon

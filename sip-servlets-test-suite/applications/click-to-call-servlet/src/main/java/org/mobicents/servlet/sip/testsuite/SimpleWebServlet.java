@@ -22,16 +22,11 @@
 
 package org.mobicents.servlet.sip.testsuite;
 
-import gov.nist.core.ServerLogger;
-import gov.nist.javax.sip.message.SIPMessage;
-import gov.nist.javax.sip.stack.RawMessageChannel;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.annotation.Resource;
 import javax.naming.Context;
@@ -45,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.sip.ConvergedHttpSession;
 import javax.servlet.sip.ServletParseException;
 import javax.servlet.sip.SipApplicationSession;
+import javax.servlet.sip.SipApplicationSession.Protocol;
 import javax.servlet.sip.SipFactory;
 import javax.servlet.sip.SipServlet;
 import javax.servlet.sip.SipServletRequest;
@@ -52,7 +48,6 @@ import javax.servlet.sip.SipSession;
 import javax.servlet.sip.SipSessionsUtil;
 import javax.servlet.sip.SipURI;
 import javax.servlet.sip.URI;
-import javax.servlet.sip.SipApplicationSession.Protocol;
 
 import org.apache.log4j.Logger;
 import org.mobicents.javax.servlet.sip.SipApplicationSessionAsynchronousWork;
@@ -122,6 +117,7 @@ public class SimpleWebServlet extends HttpServlet {
         String invalidateHttpSession = request.getParameter("invalidateHttpSession");
         String asyncWorkMode = request.getParameter("asyncWorkMode");
         String asyncWorkSasId = request.getParameter("asyncWorkSasId");
+        String notification = request.getParameter("notification");
         if(asyncWorkMode != null && asyncWorkSasId != null) {
         	doAsyncWork(asyncWorkMode, asyncWorkSasId, response);
         	return;
@@ -133,14 +129,17 @@ public class SimpleWebServlet extends HttpServlet {
         // Create app session and request
         SipApplicationSession appSession = 
         	((ConvergedHttpSession)request.getSession()).getApplicationSession();
+        
 //        SipApplicationSession appSession = 
 //        	sipFactory.createApplicationSession();
         if(!appSession.getSessions("HTTP").hasNext()) {
         	response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
         	return;
         }
-        SipServletRequest req = sipFactory.createRequest(appSession, "INVITE", from, to);
-        
+        SipServletRequest req = sipFactory.createRequest(appSession, "INVITE", from, to);        
+        req.getApplicationSession().setAttribute("notification", notification);
+        req.getApplicationSession().setInvalidateWhenReady(true);
+        logger.info("sip application session created " +  req.getApplicationSession() + " notification " + notification);
         // Set some attribute
         req.getSession().setAttribute("SecondPartyAddress", sipFactory.createAddress(fromAddr));
         if(invalidateHttpSession != null) {

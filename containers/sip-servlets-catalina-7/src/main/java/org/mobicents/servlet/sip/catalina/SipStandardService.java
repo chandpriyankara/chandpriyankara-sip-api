@@ -36,10 +36,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.TooManyListenersException;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
@@ -69,6 +72,7 @@ import org.mobicents.servlet.sip.annotation.ConcurrencyControlMode;
 import org.mobicents.servlet.sip.core.ExtendedListeningPoint;
 import org.mobicents.servlet.sip.core.MobicentsExtendedListeningPoint;
 import org.mobicents.servlet.sip.core.SipApplicationDispatcher;
+import org.mobicents.servlet.sip.core.SipContext;
 import org.mobicents.servlet.sip.core.message.OutboundProxy;
 import org.mobicents.servlet.sip.message.Servlet3SipServletMessageFactory;
 import org.mobicents.servlet.sip.startup.StaticServiceHolder;
@@ -158,7 +162,9 @@ public class SipStandardService extends StandardService implements CatalinaSipSe
 	//the balancers to send heartbeat to and our health info
 	@Deprecated
 	private String balancers;
-	
+	// 
+    private ScheduledFuture<?> gracefulStopFuture;
+    
 	@Override
     public String getInfo() {
         return (INFO);
@@ -1254,4 +1260,45 @@ public class SipStandardService extends StandardService implements CatalinaSipSe
         sipStack.closeReliableConnection(sipConnector.getIpAddress(),sipConnector.getPort(), sipConnector.getTransport(),
                 clientAddress, clientPort);
     }
+
+    /*
+	 * (non-Javadoc)
+	 * @see org.mobicents.servlet.sip.core.SipService#stopGracefully(long)
+	 */
+	public void stopGracefully(long timeToWait) {
+		if(logger.isInfoEnabled()) {
+			logger.info("Stopping the Server Gracefully in " + timeToWait + " ms");
+		}
+		if(timeToWait == 0) {
+			if(gracefulStopFuture != null) {
+				gracefulStopFuture.cancel(false);
+			}
+			try {
+				stop();
+			} catch (LifecycleException e) {
+				logger.error("The server couldn't be stopped", e);
+			}
+		} else {
+			Iterator<SipContext> sipContexts = sipApplicationDispatcher.findSipApplications();
+			while (sipContexts.hasNext()) {
+				SipContext sipContext = sipContexts.next();
+				sipContext.stopGracefully(timeToWait);
+			}
+			gracefulStopFuture = sipApplicationDispatcher.getAsynchronousScheduledExecutor().scheduleWithFixedDelay(new ServiceGracefulStopTask(this), 30000, 30000, TimeUnit.MILLISECONDS);
+			if(timeToWait > 0) {
+				gracefulStopFuture = sipApplicationDispatcher.getAsynchronousScheduledExecutor().schedule(
+						new Runnable() {
+							public void run() { 
+								gracefulStopFuture.cancel(false);
+								try {
+									stop();
+								} catch (LifecycleException e) {
+									logger.error("The server couldn't be stopped", e);
+								}
+							}
+						}
+	                , timeToWait, TimeUnit.MILLISECONDS);
+			}
+		}
+	}
 }

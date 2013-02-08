@@ -1,66 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
-  <classpathentry kind="output" path="target/classes"/>
-  <classpathentry kind="var" path="M2_REPO/javax/sip/jain-sip-api/1.2.0/jain-sip-api-1.2.0.jar" sourcepath="M2_REPO/javax/sip/jain-sip-api/1.2.0/jain-sip-api-1.2.0-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/home/jean/.m2/repository/javax/sip/jain-sip-api/1.2.0/jain-sip-api-1.2.0-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/javax/sip/jain-sip-ri/6.1.2.GA-TelScale/jain-sip-ri-6.1.2.GA-TelScale.jar" sourcepath="M2_REPO/javax/sip/jain-sip-ri/6.1.2.GA-TelScale/jain-sip-ri-6.1.2.GA-TelScale-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/home/jean/.m2/repository/javax/sip/jain-sip-ri/6.1.2.GA-TelScale/jain-sip-ri-6.1.2.GA-TelScale-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/annotations-api/6.0.35/annotations-api-6.0.35.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/ant/ant/1.7.1/ant-1.7.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/ant/ant-junit/1.7.0/ant-junit-1.7.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/catalina/6.0.35/catalina-6.0.35.jar"/>
-  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/coyote/6.0.35/coyote-6.0.35.jar"/>
-  <classpathentry kind="var" path="M2_REPO/geronimo-spec/geronimo-spec-j2ee-jacc/1.0-rc4/geronimo-spec-j2ee-jacc-1.0-rc4.jar"/>
-  <classpathentry kind="var" path="M2_REPO/javassist/javassist/3.9.0.GA/javassist-3.9.0.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jboss/jboss/4.2.3.GA/jboss-4.2.3.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/aop/jboss-aop/2.1.1.GA/jboss-aop-2.1.1.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/aop/jboss-aop-aspects/2.0.0.CR14/jboss-aop-aspects-2.0.0.CR14.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jboss/jboss-cache/1.4.1.SP5/jboss-cache-1.4.1.SP5.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jboss/common/jboss-common/1.2.1.GA/jboss-common-1.2.1.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/jboss-common-core/2.2.14.GA/jboss-common-core-2.2.14.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jboss/jboss-jmx/4.2.3.GA/jboss-jmx-4.2.3.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/logging/jboss-logging-log4j/2.1.0.GA/jboss-logging-log4j-2.1.0.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/logging/jboss-logging-spi/2.1.0.GA/jboss-logging-spi-2.1.0.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/jboss-mdr/2.0.1.GA/jboss-mdr-2.0.1.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jboss/profiler/jvmti/jboss-profiler-jvmti/1.0.0.CR5/jboss-profiler-jvmti-1.0.0.CR5.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/jboss-reflect/2.0.2.GA/jboss-reflect-2.0.2.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/security/jboss-security-spi/2.0.3.SP1/jboss-security-spi-2.0.3.SP1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/jbossas/jboss-server-manager/1.0.2.GA/jboss-server-manager-1.0.2.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jboss/jboss-system/4.2.3.GA/jboss-system-4.2.3.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/test/jboss-test/1.1.4.GA/jboss-test-1.1.4.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jboss/jbosssx/4.2.3.GA/jbosssx-4.2.3.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/security/jbosssx-client/2.0.3.SP1/jbosssx-client-2.0.3.SP1.jar"/>
-  <classpathentry kind="lib" path="lib/jbossweb-service-4.2.3.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jgroups/jgroups/2.4.1/jgroups-2.4.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/jboss/naming/jnp-client/5.0.3.GA/jnp-client-5.0.3.GA.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/juli/6.0.35/juli-6.0.35.jar"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar" sourcepath="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/javax/sip/mobicents-jain-sip-ext/6.1.2.GA-TelScale/mobicents-jain-sip-ext-6.1.2.GA-TelScale.jar" sourcepath="M2_REPO/org/mobicents/javax/sip/mobicents-jain-sip-ext/6.1.2.GA-TelScale/mobicents-jain-sip-ext-6.1.2.GA-TelScale-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/home/jean/.m2/repository/org/mobicents/javax/sip/mobicents-jain-sip-ext/6.1.2.GA-TelScale/mobicents-jain-sip-ext-6.1.2.GA-TelScale-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/qdox/qdox/1.6.1/qdox-1.6.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/servlet-api/6.0.35/servlet-api-6.0.35.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/servlet/sip/sip-servlets-annotations/6.1.3-TelScale-SNAPSHOT/sip-servlets-annotations-6.1.3-TelScale-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/servlet/sip/containers/sip-servlets-catalina/6.1.3-TelScale-SNAPSHOT/sip-servlets-catalina-6.1.3-TelScale-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/servlet/sip/sip-servlets-client/6.1.3-TelScale-SNAPSHOT/sip-servlets-client-6.1.3-TelScale-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/servlet/sip/sip-servlets-core-api/6.1.3-TelScale-SNAPSHOT/sip-servlets-core-api-6.1.3-TelScale-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/servlet/sip/sip-servlets-impl/6.1.3-TelScale-SNAPSHOT/sip-servlets-impl-6.1.3-TelScale-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/servlet/sip/sip-servlets-jruby/6.1.3-TelScale-SNAPSHOT/sip-servlets-jruby-6.1.3-TelScale-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/mobicents/servlet/sip/sip-servlets-spec/6.1.3-TelScale-SNAPSHOT/sip-servlets-spec-6.1.3-TelScale-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/trove/trove/1.0.2/trove-1.0.2.jar"/>
-  <classpathentry kind="var" path="M2_REPO/apache-xerces/xml-apis/2.9.1/xml-apis-2.9.1.jar"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry kind="var" path="M2_REPO/javax/sip/jain-sip-api/1.2.0/jain-sip-api-1.2.0.jar" sourcepath="M2_REPO/javax/sip/jain-sip-api/1.2.0/jain-sip-api-1.2.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/jean/.m2/repository/javax/sip/jain-sip-api/1.2.0/jain-sip-api-1.2.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/javax/sip/jain-sip-ri/6.1.2.GA-TelScale/jain-sip-ri-6.1.2.GA-TelScale.jar" sourcepath="M2_REPO/javax/sip/jain-sip-ri/6.1.2.GA-TelScale/jain-sip-ri-6.1.2.GA-TelScale-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/jean/.m2/repository/javax/sip/jain-sip-ri/6.1.2.GA-TelScale/jain-sip-ri-6.1.2.GA-TelScale-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/tomcat/annotations-api/6.0.35/annotations-api-6.0.35.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/ant/ant/1.7.1/ant-1.7.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/ant/ant-junit/1.7.0/ant-junit-1.7.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/tomcat/catalina/6.0.35/catalina-6.0.35.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/tomcat/coyote/6.0.35/coyote-6.0.35.jar"/>
+	<classpathentry kind="var" path="M2_REPO/geronimo-spec/geronimo-spec-j2ee-jacc/1.0-rc4/geronimo-spec-j2ee-jacc-1.0-rc4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javassist/javassist/3.9.0.GA/javassist-3.9.0.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jboss/jboss/4.2.3.GA/jboss-4.2.3.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/aop/jboss-aop/2.1.1.GA/jboss-aop-2.1.1.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/aop/jboss-aop-aspects/2.0.0.CR14/jboss-aop-aspects-2.0.0.CR14.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jboss/jboss-cache/1.4.1.SP5/jboss-cache-1.4.1.SP5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jboss/common/jboss-common/1.2.1.GA/jboss-common-1.2.1.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/jboss-common-core/2.2.14.GA/jboss-common-core-2.2.14.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jboss/jboss-jmx/4.2.3.GA/jboss-jmx-4.2.3.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/logging/jboss-logging-log4j/2.1.0.GA/jboss-logging-log4j-2.1.0.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/logging/jboss-logging-spi/2.1.0.GA/jboss-logging-spi-2.1.0.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/jboss-mdr/2.0.1.GA/jboss-mdr-2.0.1.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jboss/profiler/jvmti/jboss-profiler-jvmti/1.0.0.CR5/jboss-profiler-jvmti-1.0.0.CR5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/jboss-reflect/2.0.2.GA/jboss-reflect-2.0.2.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/security/jboss-security-spi/2.0.3.SP1/jboss-security-spi-2.0.3.SP1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/jbossas/jboss-server-manager/1.0.2.GA/jboss-server-manager-1.0.2.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jboss/jboss-system/4.2.3.GA/jboss-system-4.2.3.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/test/jboss-test/1.1.4.GA/jboss-test-1.1.4.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jboss/jbosssx/4.2.3.GA/jbosssx-4.2.3.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/security/jbosssx-client/2.0.3.SP1/jbosssx-client-2.0.3.SP1.jar"/>
+	<classpathentry kind="lib" path="lib/jbossweb-service-4.2.3.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jgroups/jgroups/2.4.1/jgroups-2.4.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/naming/jnp-client/5.0.3.GA/jnp-client-5.0.3.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/tomcat/juli/6.0.35/juli-6.0.35.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar" sourcepath="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/qdox/qdox/1.6.1/qdox-1.6.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/tomcat/servlet-api/6.0.35/servlet-api-6.0.35.jar"/>
+	<classpathentry kind="var" path="M2_REPO/trove/trove/1.0.2/trove-1.0.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/apache-xerces/xml-apis/2.9.1/xml-apis-2.9.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-catalina"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-impl"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-core-api"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-spec"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-jruby"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-annotations"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mobicents-jain-sip-ext"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

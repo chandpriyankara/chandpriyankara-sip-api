@@ -1,6 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
+ * TeleStax, Open Source Cloud Communications  Copyright 2012. 
+ * and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -32,6 +32,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -71,6 +73,7 @@ import org.mobicents.servlet.sip.annotations.SipAnnotationProcessorImpl;
 import org.mobicents.servlet.sip.catalina.CatalinaSipContext;
 import org.mobicents.servlet.sip.catalina.CatalinaSipListenersHolder;
 import org.mobicents.servlet.sip.catalina.CatalinaSipManager;
+import org.mobicents.servlet.sip.catalina.ContextGracefulStopTask;
 import org.mobicents.servlet.sip.catalina.SARDirContext;
 import org.mobicents.servlet.sip.catalina.SipDeploymentException;
 import org.mobicents.servlet.sip.catalina.SipLoginConfig;
@@ -185,7 +188,8 @@ public class SipStandardContext extends StandardContext implements CatalinaSipCo
     private transient ThreadLocal<SipApplicationSessionCreationThreadLocal> sipApplicationSessionsAccessedThreadLocal = new ThreadLocal<SipApplicationSessionCreationThreadLocal>();
     // http://code.google.com/p/mobicents/issues/detail?id=2534 && http://code.google.com/p/mobicents/issues/detail?id=2526
     private transient ThreadLocal<Boolean> isManagedThread = new ThreadLocal<Boolean>();
-    
+    // http://code.google.com/p/sipservlets/issues/detail?id=195
+    private ScheduledFuture<?> gracefulStopFuture;
 	/**
 	 * 
 	 */
@@ -1432,4 +1436,54 @@ public class SipStandardContext extends StandardContext implements CatalinaSipCo
 	public void exitSipContext(ClassLoader oldClassLoader) {
 		Thread.currentThread().setContextClassLoader(oldClassLoader);
 	}
+	
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see org.mobicents.servlet.sip.core.SipContext#stopGracefully(long)
+	 */
+	public void stopGracefully(long timeToWait) {
+		// http://code.google.com/p/sipservlets/issues/detail?id=195 
+		// Support for Graceful Shutdown of SIP Applications and Overall Server
+		if(logger.isInfoEnabled()) {
+			logger.info("Stopping the Context " + getName() + " Gracefully in " + timeToWait + " ms");
+		}
+		// Guarantees that the application won't be routed any initial requests anymore but will still handle subsequent requests  
+		List<String> applicationsUndeployed = new ArrayList<String>();
+		applicationsUndeployed.add(applicationName);
+		sipApplicationDispatcher.getSipApplicationRouter().applicationUndeployed(applicationsUndeployed);		
+		if(timeToWait == 0) {
+			if(gracefulStopFuture != null) {
+				gracefulStopFuture.cancel(false);
+			}
+			try {
+				stop();
+			} catch (LifecycleException e) {
+				logger.error("The server couldn't be stopped", e);
+			}
+		} else {
+			gracefulStopFuture = sipApplicationDispatcher.getAsynchronousScheduledExecutor().scheduleWithFixedDelay(new ContextGracefulStopTask(this), 30000, 30000, TimeUnit.MILLISECONDS);
+			if(timeToWait > 0) {
+				gracefulStopFuture = sipApplicationDispatcher.getAsynchronousScheduledExecutor().schedule(
+						new Runnable() {
+							public void run() { 
+								gracefulStopFuture.cancel(false); 
+								try {
+									stop();
+								} catch (LifecycleException e) {
+									logger.error("The server couldn't be stopped", e);
+								}
+							}
+						}
+	                , timeToWait, TimeUnit.MILLISECONDS);
+			}
+		}
+	}
+
+	@Override
+	public boolean isStoppingGracefully() {
+		if(gracefulStopFuture != null)
+			return true;
+		return false;
+	}	
 }

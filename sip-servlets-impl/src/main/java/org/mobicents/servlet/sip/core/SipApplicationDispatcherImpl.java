@@ -154,7 +154,9 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 	/**
 	 * Timer task that will gather information about congestion control 
 	 * @author <A HREF="mailto:jean.deruelle@gmail.com">Jean Deruelle</A>
+	 * @deprecated use JAIN SIP Ext Congestion Control innstead
 	 */
+	@Deprecated
 	public class CongestionControlTimerTask implements Runnable {		
 		
 		public void run() {
@@ -221,16 +223,22 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 	private int memoryThreshold;
 	private int backToNormalMemoryThreshold;
 	private boolean rejectSipMessages = false;
-	private long congestionControlCheckingInterval; //30 sec		
+	private long congestionControlCheckingInterval; //30 sec
+	@Deprecated
 	protected transient CongestionControlTimerTask congestionControlTimerTask;
+	@Deprecated
 	protected transient ScheduledFuture congestionControlTimerFuture;
 	private CongestionControlPolicy congestionControlPolicy;
+	@Deprecated
 	private int numberOfMessagesInQueue;
+	@Deprecated
 	private double percentageOfMemoryUsed;	
+	@Deprecated
 	private int queueSize;
+	@Deprecated
 	private int backToNormalQueueSize;
-	//used for the congestion control mechanism
-	private ScheduledThreadPoolExecutor congestionControlThreadPool = null;
+	//used for graceful stops and congestion control mechanism (which is now deprecated)
+	private ScheduledThreadPoolExecutor asynchronousScheduledThreadPoolExecutor = null;
 	
 	// configuration
 	private boolean bypassResponseExecutor = true;
@@ -326,9 +334,9 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 			logger.info("bypassResponseExecutor ? " + bypassResponseExecutor);
 		}
 		messageDispatcherFactory = new MessageDispatcherFactory(this);
-		congestionControlThreadPool = new ScheduledThreadPoolExecutor(2,
+		asynchronousScheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(2,
 				new ThreadPoolExecutor.CallerRunsPolicy());
-		congestionControlThreadPool.prestartAllCoreThreads();	
+		asynchronousScheduledThreadPoolExecutor.prestartAllCoreThreads();	
 		logger.info("AsynchronousThreadPoolExecutor size is " + sipService.getDispatcherThreadPoolSize());		
 		asynchronousExecutor = new ThreadPoolExecutor(sipService.getDispatcherThreadPoolSize(), 64, 90, TimeUnit.SECONDS,
 				new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
@@ -366,7 +374,7 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 		}		
 		congestionControlTimerTask = new CongestionControlTimerTask();
 		if(congestionControlTimerFuture == null && congestionControlCheckingInterval > 0) { 
-				congestionControlTimerFuture = congestionControlThreadPool.scheduleWithFixedDelay(congestionControlTimerTask, congestionControlCheckingInterval, congestionControlCheckingInterval, TimeUnit.MILLISECONDS);
+				congestionControlTimerFuture = asynchronousScheduledThreadPoolExecutor.scheduleWithFixedDelay(congestionControlTimerTask, congestionControlCheckingInterval, congestionControlCheckingInterval, TimeUnit.MILLISECONDS);
 		 	if(logger.isInfoEnabled()) {
 		 		logger.info("Congestion control background task started and checking every " + congestionControlCheckingInterval + " milliseconds.");
 		 	}
@@ -413,7 +421,7 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 		} finally {
 			statusLock.unlock();
 		}
-		congestionControlThreadPool.shutdownNow();
+		asynchronousScheduledThreadPoolExecutor.shutdownNow();
 		asynchronousExecutor.shutdownNow();						
 		sipApplicationRouter.destroy();
 		
@@ -1722,6 +1730,10 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 	public ThreadPoolExecutor getAsynchronousExecutor() {
 		return asynchronousExecutor;
 	}
+	
+	public ScheduledThreadPoolExecutor getAsynchronousScheduledExecutor() {
+		return asynchronousScheduledThreadPoolExecutor;
+	}
 
 	/**
 	 * Serialize the state info in memory and deserialize it and return the new object. 
@@ -1981,7 +1993,7 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 						congestionControlTimerFuture.cancel(false);
 					}
 					if(congestionControlCheckingInterval > 0) {
-						congestionControlTimerFuture = congestionControlThreadPool.scheduleWithFixedDelay(congestionControlTimerTask, congestionControlCheckingInterval, congestionControlCheckingInterval, TimeUnit.MILLISECONDS);
+						congestionControlTimerFuture = asynchronousScheduledThreadPoolExecutor.scheduleWithFixedDelay(congestionControlTimerTask, congestionControlCheckingInterval, congestionControlCheckingInterval, TimeUnit.MILLISECONDS);
 						if(logger.isInfoEnabled()) {
 					 		logger.info("Congestion control background task modified to check every " + congestionControlCheckingInterval + " milliseconds.");
 					 	}
