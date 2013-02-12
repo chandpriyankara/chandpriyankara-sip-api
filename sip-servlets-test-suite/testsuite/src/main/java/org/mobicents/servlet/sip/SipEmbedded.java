@@ -1,8 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * TeleStax, Open Source Cloud Communications.
+ * Copyright 2012 and individual contributors by the @authors tag. 
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -170,7 +168,7 @@ public class SipEmbedded {
 		sipService.setAdditionalParameterableHeaders("additionalParameterableHeader");
 		sipService.setUsePrettyEncoding(true);
 		if(isHA) {
-			sipService.setSipPathName("org.mobicents.ha");
+			sipService.setSipPathName("org.mobicents.ha.balancing.only");
 			sipService.setBalancers("" + System.getProperty("org.mobicents.testsuite.testhostaddr") + "");
 		}
 //		sipService.setBypassRequestExecutor(true);

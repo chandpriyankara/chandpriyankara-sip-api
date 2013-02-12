@@ -23,7 +23,6 @@
 package org.mobicents.servlet.sip.testsuite;
 
 import gov.nist.javax.sip.DialogExt;
-import gov.nist.javax.sip.SipStackImpl;
 import gov.nist.javax.sip.address.SipUri;
 import gov.nist.javax.sip.header.HeaderExt;
 import gov.nist.javax.sip.header.HeaderFactoryExt;
@@ -35,8 +34,6 @@ import gov.nist.javax.sip.header.extensions.JoinHeader;
 import gov.nist.javax.sip.header.extensions.ReplacesHeader;
 import gov.nist.javax.sip.header.ims.PathHeader;
 import gov.nist.javax.sip.message.MessageExt;
-import gov.nist.javax.sip.stack.SIPDialog;
-import gov.nist.javax.sip.stack.SIPTransactionStack;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -2130,6 +2127,9 @@ public class TestSipListener implements SipListener {
 		Thread th = new Thread(){
 			public void run() {
 				try {
+					if(getFinalResponseStatus() >= 500 && getFinalResponseStatus() < 600) {
+						logger.info("Not Sending BYE as last response final status was " + getFinalResponseStatus());
+					}
 					if(sendByeInNewThread) Thread.sleep(600);
 					Request byeRequest = dialog.createRequest(Request.BYE);
 					URI uri = ((FromHeader)byeRequest.getHeader(FromHeader.NAME)).getAddress().getURI();

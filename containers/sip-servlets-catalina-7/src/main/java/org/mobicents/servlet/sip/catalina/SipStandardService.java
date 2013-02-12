@@ -1279,6 +1279,7 @@ public class SipStandardService extends StandardService implements CatalinaSipSe
 				logger.error("The server couldn't be stopped", e);
 			}
 		} else {
+			sipApplicationDispatcher.setGracefulShutdown(true);
 			Iterator<SipContext> sipContexts = sipApplicationDispatcher.findSipApplications();
 			while (sipContexts.hasNext()) {
 				SipContext sipContext = sipContexts.next();

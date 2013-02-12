@@ -34,7 +34,6 @@ import javax.sip.address.SipURI;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.deploy.ApplicationParameter;
 import org.apache.catalina.realm.MemoryRealm;
-import org.apache.catalina.session.StandardManager;
 import org.apache.log4j.Logger;
 import org.mobicents.servlet.sip.SipServletTestCase;
 import org.mobicents.servlet.sip.catalina.SipStandardManager;

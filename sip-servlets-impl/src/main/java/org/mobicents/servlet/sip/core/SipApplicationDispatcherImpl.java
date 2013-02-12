@@ -444,7 +444,7 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 	 */
 	public void addSipApplication(String sipApplicationName, SipContext sipApplication) {
 		if(logger.isDebugEnabled()) {
-			logger.debug("Adding the following sip servlet application " + sipApplicationName + ", SipContext=" + sipApplication);
+			logger.debug(this + " Adding the following sip servlet application " + sipApplicationName + ", SipContext=" + sipApplication);
 		}
 		if(sipApplicationName == null) {
 			throw new IllegalArgumentException("Something when wrong while initializing a sip servlets or converged application ");
@@ -492,7 +492,7 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 			statusLock.unlock();
 		}
 		if(logger.isInfoEnabled()) {
-			logger.info("the following sip servlet application has been added : " + sipApplicationName);
+			logger.info(this + " the following sip servlet application has been added : " + sipApplicationName);
 		}
 		if(logger.isInfoEnabled()) {
 			logger.info("It contains the following Sip Servlets : ");
@@ -2233,6 +2233,19 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 		}
 		for(SipLoadBalancer  sipLoadBalancer : sipLoadBalancers) {
 			sipLoadBalancer.switchover(fromJvmRoute, toJvmRoute);			
+		}		
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.mobicents.servlet.sip.core.SipApplicationDispatcher#setGracefulShutdown(boolean)
+	 */
+	public void setGracefulShutdown(boolean shuttingDownGracefully) {
+		if(logger.isDebugEnabled()) {
+			logger.debug("sending graceful shutdown to Load Balancers");
+		}
+		for(SipLoadBalancer  sipLoadBalancer : sipLoadBalancers) {
+			sipLoadBalancer.setGracefulShutdown(shuttingDownGracefully);			
 		}		
 	}
 

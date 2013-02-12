@@ -67,5 +67,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-catalina"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/sip-servlets-tomcat-jboss4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/mobicents-jain-sip-jboss4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sip-balancer-jar"/>
 	<classpathentry kind="output" path="testsuite/target/test-classes"/>
 </classpath>

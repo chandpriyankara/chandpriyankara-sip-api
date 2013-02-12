@@ -1,8 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * TeleStax, Open Source Cloud Communications.
+ * Copyright 2012 and individual contributors by the @authors tag. 
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -313,7 +311,7 @@ public class SipProtocolHandler implements ProtocolHandler, MBeanRegistration {
 				}
 				
 				if(logger.isDebugEnabled()) {
-					logger.debug("Adding the Sip Application Dispatcher as a sip listener for connector listening on port " + port);
+					logger.debug("Adding the Sip Application Dispatcher " + sipApplicationDispatcher + " as a sip listener for connector listening on port " + port);
 				}
 				sipProvider.addSipListener(sipApplicationDispatcher);
 				sipApplicationDispatcher.getSipNetworkInterfaceManager().addExtendedListeningPoint(extendedListeningPoint);

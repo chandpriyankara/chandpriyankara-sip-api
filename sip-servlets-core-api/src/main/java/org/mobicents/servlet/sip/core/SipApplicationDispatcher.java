@@ -156,6 +156,8 @@ public interface SipApplicationDispatcher extends SipListenerExt {
 
 	// should be in a seperate HA interface, but this may become deprecated in the future
 	void sendSwitchoverInstruction(String fromJvmRoute, String toJvmRoute);
+	// tell the application Disptacher to shutdown gracefully
+	void setGracefulShutdown(boolean shuttingDownGracefully);
 	
 	String getApplicationNameFromHash(String hash);
 	String getHashFromApplicationName(String appName);
