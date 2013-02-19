@@ -73,6 +73,15 @@ public interface SipApplicationDispatcher extends SipListenerExt {
 	void stop();
 	
 	/**
+	 * Stop the Server GraceFully, ie the server will stop only when all applications
+	 * will have no outstanding SIP or HTTP Sessions
+	 * @param timeToWait - the container will wait for the time specified in this parameter before forcefully killing
+	 * the remaining sessions (HTTP and SIP) for each application deployed, if a negative value is provided the container 
+	 * will wait until there is no remaining Session before shutting down
+	 */
+	public void stopGracefully(long timeToWait);
+	
+	/**
 	 * Add a new sip application to which sip messages can be routed
 	 * @param sipApplicationName the sip application logical name
 	 * @param sipApplication the sip context representing the application 
@@ -163,6 +172,7 @@ public interface SipApplicationDispatcher extends SipListenerExt {
 	String getHashFromApplicationName(String appName);
 	
 	ConcurrencyControlMode getConcurrencyControlMode();
+	String getConcurrencyControlModeByName();
 	void setConcurrencyControlMode(ConcurrencyControlMode concurrencyControlMode);
 	void setConcurrencyControlModeByName(String concurrencyControlMode);
 
@@ -176,6 +186,7 @@ public interface SipApplicationDispatcher extends SipListenerExt {
 	long getCongestionControlCheckingInterval();
 		
 	CongestionControlPolicy getCongestionControlPolicy();
+	String getCongestionControlPolicyByName();
 	void setCongestionControlPolicy(CongestionControlPolicy congestionControlPolicy);
 	void setCongestionControlPolicyByName(String congestionControlPolicy);
 	

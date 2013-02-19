@@ -408,6 +408,14 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 		}	
 	}	
 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.mobicents.servlet.sip.core.SipApplicationDispatcher#stopGracefully(long)
+	 */
+	public void stopGracefully(long timeToWait) {
+		sipService.stopGracefully(timeToWait);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -1931,6 +1939,16 @@ public class SipApplicationDispatcherImpl implements SipApplicationDispatcher, S
 			logger.info("Container wide Concurrency Control set to " + concurrencyControlMode);
 		}
 	}	
+	
+	@Override
+	public String getConcurrencyControlModeByName() {
+		return concurrencyControlMode.toString();
+	}
+
+	@Override
+	public String getCongestionControlPolicyByName() {
+		return congestionControlPolicy.toString();
+	}
 
 	/**
 	 * @return the requestsProcessed

@@ -22,7 +22,8 @@
 
 package org.mobicents.servlet.management.client;
 
-import org.mobicents.servlet.management.client.configuration.ConfiguationPage;
+import org.mobicents.servlet.management.client.configuration.ConfigurationPage;
+import org.mobicents.servlet.management.client.control.ControlPage;
 import org.mobicents.servlet.management.client.deploy.DeployExamplesPage;
 import org.mobicents.servlet.management.client.router.RouterConfigurationPage;
 
@@ -44,6 +45,7 @@ public class UserInterface extends VerticalPanel{
 		TabPanel tabPanel = new TabPanel();
 		tabPanel.add(getRouterConfigPage());
 		tabPanel.add(getConfigurationPage());
+		tabPanel.add(getControlPage());
 		//tabPanel.add(getDeploymentPage());
 		tabPanel.setResizeTabs(true);  
 		tabPanel.setMinTabWidth(115);  
@@ -78,7 +80,7 @@ public class UserInterface extends VerticalPanel{
 	
 	private Widget getConfigurationPage() {
 		Panel configPanel = new Panel();
-		ConfiguationPage config = new ConfiguationPage();
+		ConfigurationPage config = new ConfigurationPage();
 		configPanel.add(config);
 		configPanel.setTitle("Server Settings");
 		configPanel.setIconCls("tab-icon-settings");
@@ -94,5 +96,13 @@ public class UserInterface extends VerticalPanel{
 		return deployPanel;
 	}
 	
+	private Widget getControlPage() {
+		Panel controlPanel = new Panel();
+		ControlPage config = new ControlPage();
+		controlPanel.add(config);
+		controlPanel.setTitle("Server Control");
+//		controlPanel.setIconCls("tab-icon-control");
+		return controlPanel;
+	}
 
 }

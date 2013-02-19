@@ -1,8 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc. and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * TeleStax, Open Source Cloud Communications.
+ * Copyright 2012 and individual contributors by the @authors tag. 
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -39,7 +37,7 @@ import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.event.ComboBoxListenerAdapter;
 
-public class ConfiguationPage extends Panel {
+public class ConfigurationPage extends Panel {
 	private static Object[][] concurrencyControlModes = new Object[][]{  
 		new Object[]{"None"},  
 		new Object[]{"Transaction"},
@@ -69,6 +67,7 @@ public class ConfiguationPage extends Panel {
 	TextField t2Interval;
 	TextField t4Interval;
 	TextField timerDInterval;
+	TextField stopGracefully;
 	
 	private ComboBox makeCombo(Store store, String field, ComboBoxListenerAdapter listener, String defaultValue) {
 		final ComboBox box;
@@ -99,7 +98,7 @@ public class ConfiguationPage extends Panel {
 		panel.add(component);
 	}
 	
-	public ConfiguationPage() {
+	public ConfigurationPage() {
 		final FormPanel formPanel = new FormPanel();  
 
 //		formPanel.setTitle("Concurrency and Congestion Control");  

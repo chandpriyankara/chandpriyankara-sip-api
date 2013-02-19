@@ -4,7 +4,7 @@
     <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
 	<inherits name='com.gwtext.GwtExt' />
 	<!-- Inherit gwt-dnd 2.x support               -->
-	<inherits name="com.allen_sauer.gwt.dnd.gwt-dnd" />
+	<!--inherits name="com.allen_sauer.gwt.dnd.gwt-dnd" /-->
 	
 	<!-- Specify the app entry point class.                   -->
 	<entry-point
@@ -15,6 +15,9 @@
 	<servlet
 		class="org.mobicents.servlet.management.server.configuration.ConfigurationServiceImpl"
 		path="/ConfigurationService" />
+	<servlet
+		class="org.mobicents.servlet.management.server.control.ControlServiceImpl"
+		path="/ControlService" />
 	<servlet
 		class="org.mobicents.servlet.management.server.deploy.DeploymentServiceImpl"
 		path="/DeploymentService" />
