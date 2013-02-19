@@ -29,10 +29,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.mc4j.ems.connection.bean.attribute.EmsAttribute;
 import org.mc4j.ems.connection.bean.operation.EmsOperation;
+import org.rhq.core.domain.configuration.Configuration;
 import org.rhq.core.domain.measurement.MeasurementDataNumeric;
 import org.rhq.core.domain.measurement.MeasurementReport;
 import org.rhq.core.domain.measurement.MeasurementScheduleRequest;
 import org.rhq.core.pluginapi.measurement.MeasurementFacet;
+import org.rhq.core.pluginapi.operation.OperationResult;
 import org.rhq.plugins.jmx.MBeanResourceComponent;
 
 /**
@@ -103,6 +105,54 @@ public class SipApplicationDispatcherComponent extends MBeanResourceComponent im
             	remainingSchedules.add(schedule);
             }
         }		
+	}
+	
+	@Override
+	public OperationResult invokeOperation(String name, Configuration parameters)
+				throws InterruptedException, Exception {
+
+		log.debug("Operation '" + name + "' on " + getEmsBean().getBeanName());
+		if (name.equals("stopGracefully")) {
+			long timeToWait = parameters.getSimple("timeToWait").getLongValue();
+			log.debug("Operation '" + name + "' on "
+					+ getEmsBean().getBeanName() + " with timeToWait "
+					+ timeToWait);
+
+				EmsOperation operation = getEmsBean().getOperation(name,
+						long.class);
+				Object result = operation.invoke(timeToWait);
+				log.debug("Operation '" + name + "' on "
+						+ getEmsBean().getBeanName() + " completed with status ["
+						+ result + "].");
+
+			return new OperationResult();
+		} if (name.equals("setConcurrencyControlModeByName")) {
+			String concurrencyControlMode = parameters.getSimple("concurrencyControlMode").getStringValue();
+			log.debug("Operation '" + name + "' on "
+					+ getEmsBean().getBeanName() + " with concurrencyControlMode "
+					+ concurrencyControlMode);
+
+				EmsAttribute attribute = getEmsBean().getAttribute("concurrencyControlModeByName");
+				attribute.setValue(concurrencyControlMode);
+				log.debug("Operation '" + name + "' on "
+						+ getEmsBean().getBeanName() + " completed.");
+
+			return new OperationResult();
+		} if (name.equals("setCongestionControlPolicyByName")) {
+			String congestionControlPolicy = parameters.getSimple("congestionControlPolicy").getStringValue();
+			log.debug("Operation '" + name + "' on "
+					+ getEmsBean().getBeanName() + " with congestionControlPolicy "
+					+ congestionControlPolicy);
+
+			EmsAttribute attribute = getEmsBean().getAttribute("congestionControlPolicyByName");
+			attribute.setValue(congestionControlPolicy);
+			log.debug("Operation '" + name + "' on "
+					+ getEmsBean().getBeanName() + " completed.");
+
+			return new OperationResult();
+		} else {
+			return super.invokeOperation(name, parameters);
+		}
 	}
 	
 	public void dumpEmsInformation() {

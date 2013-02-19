@@ -789,7 +789,16 @@
         		</c:simple-property>
         	</parameters>
         </operation>
-             
+         
+        <operation name="stopGracefully" description="Stops the WebContainer gracefully, ie the server will stop only when all applications will have no outstanding SIP or HTTP Sessions">
+        	<parameters>
+        		<c:simple-property name="timeToWait" defaultValue="-1" type="string">
+        			<c:description>
+						the container will wait for the time specified in this parameter before forcefully killing the remaining sessions (HTTP and SIP) for each application deployed, if a negative value is provided the container will wait until there is no remaining Session before shutting down	                    
+               		</c:description>
+               	</c:simple-property>	        		
+        	</parameters>
+       	</operation>     
         
         <metric displayName="Number of SIP requests processed" property="requestsProcessed"
              defaultOn="true" defaultInterval="1000" displayType="summary"/>
@@ -2365,6 +2374,18 @@
 
             <operation name="stop"
                        description="stops this WAR"/>
+
+			 <operation name="stopGracefully" description="Stops this converged WAR gracefully, ie the application will stop only when there is no outstanding SIP or HTTP Sessions but it will not accept any new requests for non existing Sessions">
+	        	<parameters>
+	        		<c:simple-property name="timeToWait" type="longString">
+	        			<c:description>
+							The application will wait for the time specified in this parameter before forcefully killing
+	 						the remaining sessions (HTTP and SIP) for each application deployed, if a negative value is provided the application 
+	 						will wait until there is no remaining Session before shutting down		                    
+                		</c:description>
+                	</c:simple-property>	        		
+	        	</parameters>
+	        </operation>
 
             <operation name="restart"
                        description="stops and then restarts this WAR"/>

@@ -24,15 +24,20 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jboss.deployers.spi.management.deploy.DeploymentStatus;
 import org.mc4j.ems.connection.EmsConnection;
 import org.mc4j.ems.connection.bean.EmsBean;
 import org.mc4j.ems.connection.bean.attribute.EmsAttribute;
+import org.mc4j.ems.connection.bean.operation.EmsOperation;
+import org.rhq.core.domain.configuration.Configuration;
 import org.rhq.core.domain.measurement.MeasurementDataNumeric;
 import org.rhq.core.domain.measurement.MeasurementDataTrait;
 import org.rhq.core.domain.measurement.MeasurementReport;
 import org.rhq.core.domain.measurement.MeasurementScheduleRequest;
 import org.rhq.core.pluginapi.inventory.ResourceContext;
+import org.rhq.core.pluginapi.operation.OperationResult;
 import org.rhq.plugins.jmx.ObjectNameQueryUtility;
+import org.rhq.plugins.mobicents.servlet.sip.jboss5.util.DeploymentUtils;
 
 /**
  * 
@@ -64,6 +69,7 @@ public class ConvergedSipStandaloneComponent extends StandaloneManagedDeployment
     private static final String TOTAL_TIME = "Servlet.TotalTime";
     private static final String SERVLET_NAME_BASE_TEMPLATE = "jboss.web:J2EEApplication=none,J2EEServer=none,j2eeType=Servlet,name=%name%";
     private static final String SIP_SERVLET_NAME_BASE_TEMPLATE = "jboss.web:J2EEApplication=none,J2EEServer=none,j2eeType=SipServlet,name=%name%";
+    private static final String CONTEXT_NAME_BASE_TEMPLATE = "jboss.web:J2EEApplication=none,J2EEServer=none,j2eeType=WebModule,name=//%HOST%%PATH%";
     
     private static final String SESSION_PREFIX = "Session.";
     private static final String SIP_SESSION_NAME_BASE_TEMPLATE = "jboss.web:host=%HOST%,type=SipManager,path=%PATH%";
@@ -89,6 +95,37 @@ public class ConvergedSipStandaloneComponent extends StandaloneManagedDeployment
     	this.contextRoot = deploymentName.substring(0, deploymentName.length() - 5);
     	this.contextRoot = contextRoot.substring(contextRoot.lastIndexOf("/") + 1);
     	
+    }
+    
+    @Override
+    public OperationResult invokeOperation(String name, Configuration parameters)
+    		throws InterruptedException, Exception {
+    	if (name.equals("stopGracefully")) {
+    		EmsConnection jmxConnection = applicationServerComponent.getEmsConnection();
+
+            String contextBeanName = CONTEXT_NAME_BASE_TEMPLATE.replace("%PATH%",
+            		applicationServerComponent.getContextPath(this.contextRoot));
+            //FIXME : replace localhost with the real vhost
+            contextBeanName = contextBeanName.replace("%HOST%", "localhost");
+            long timeToWait = parameters.getSimple("timeToWait").getLongValue();
+            log.debug("Operation '" + name + "' on " + contextBeanName + " with timeToWait " + timeToWait);
+	                
+            ObjectNameQueryUtility queryUtility = new ObjectNameQueryUtility(contextBeanName);
+            List<EmsBean> mBeans = jmxConnection.queryBeans(queryUtility.getTranslatedQuery());
+
+			log.debug("Operation '" + name + "' on " + contextBeanName + " with timeToWait " + timeToWait + " found " + mBeans.size() + "mbeans");
+
+            for (EmsBean mBean : mBeans) {
+                EmsOperation operation = mBean.getOperation("stopGracefully", long.class);
+            	Object result = operation.invoke(timeToWait);
+            	log.debug("Operation '" + name + "' on " + getResourceDescription() + " completed with status [" + result
+	                + "]."); 
+			 }
+	        
+	        return new OperationResult();
+    	} else {
+    		return super.invokeOperation(name, parameters);
+    	}
     }
     
     // ------------ MeasurementFacet Implementation ------------

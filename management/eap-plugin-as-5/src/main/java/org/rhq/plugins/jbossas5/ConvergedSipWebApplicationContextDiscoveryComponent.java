@@ -137,7 +137,7 @@ public class ConvergedSipWebApplicationContextDiscoveryComponent
      * @throws NoSuchDeploymentException if the WAR is no longer deployed
      */
     @Nullable
-    private String getContextPath(ResourceDiscoveryContext<AbstractManagedDeploymentComponent> discoveryContext)
+    public static String getContextPath(ResourceDiscoveryContext<AbstractManagedDeploymentComponent> discoveryContext)
             throws NoSuchDeploymentException
     {
         AbstractManagedDeploymentComponent parentWarComponent = discoveryContext.getParentResourceComponent();
@@ -154,7 +154,7 @@ public class ConvergedSipWebApplicationContextDiscoveryComponent
         }
     }
 
-    static Set<String> getVirtualHosts(String contextPath, ManagementView managementView) throws Exception
+    public static Set<String> getVirtualHosts(String contextPath, ManagementView managementView) throws Exception
     {
         Set<String> virtualHosts = new HashSet();
         Set<ManagedComponent> webApplicationManagerComponents = getWebApplicationComponents(contextPath,
@@ -166,7 +166,7 @@ public class ConvergedSipWebApplicationContextDiscoveryComponent
         return virtualHosts;
     }
 
-    private static Set<ManagedComponent> getWebApplicationComponents(String contextPath, ManagementView managementView)
+    public static Set<ManagedComponent> getWebApplicationComponents(String contextPath, ManagementView managementView)
             throws Exception
     {
         if (contextPath == null)
@@ -185,7 +185,7 @@ public class ConvergedSipWebApplicationContextDiscoveryComponent
 
     }
 
-    private static String getWebApplicationComponentVirtualHost(ManagedComponent webApplicationComponent)
+    public static String getWebApplicationComponentVirtualHost(ManagedComponent webApplicationComponent)
     {
         ObjectName objectName;
         try

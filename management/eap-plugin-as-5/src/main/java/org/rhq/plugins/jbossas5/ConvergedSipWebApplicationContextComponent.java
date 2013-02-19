@@ -24,6 +24,7 @@ package org.rhq.plugins.jbossas5;
 
 import java.io.File;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -32,6 +33,9 @@ import org.apache.commons.logging.LogFactory;
 import org.jboss.deployers.spi.management.ManagementView;
 import org.jboss.managed.api.ComponentType;
 import org.jboss.managed.api.ManagedComponent;
+import org.mc4j.ems.connection.EmsConnection;
+import org.mc4j.ems.connection.bean.EmsBean;
+import org.mc4j.ems.connection.bean.operation.EmsOperation;
 
 import org.rhq.core.domain.configuration.Configuration;
 import org.rhq.core.domain.measurement.MeasurementDataNumeric;
@@ -40,12 +44,14 @@ import org.rhq.core.domain.measurement.MeasurementReport;
 import org.rhq.core.domain.measurement.MeasurementScheduleRequest;
 import org.rhq.core.domain.measurement.calltime.CallTimeData;
 import org.rhq.core.pluginapi.inventory.ResourceContext;
+import org.rhq.core.pluginapi.operation.OperationResult;
 import org.rhq.core.pluginapi.util.ResponseTimeConfiguration;
 import org.rhq.core.pluginapi.util.ResponseTimeLogParser;
 import org.rhq.plugins.jbossas5.helper.MoreKnownComponentTypes;
 import org.rhq.plugins.jbossas5.util.ManagedComponentUtils;
 import org.rhq.plugins.jbossas5.util.RegularExpressionNameMatcher;
 import org.rhq.plugins.jbossas5.util.ResourceComponentUtils;
+import org.rhq.plugins.jmx.ObjectNameQueryUtility;
 
 /**
  * A Resource component for web application contexts (e.g. "//localhost/jmx-console").
@@ -87,6 +93,7 @@ public class ConvergedSipWebApplicationContextComponent extends ManagedComponent
 
     private String servletComponentNamesRegex;
     private String sipServletComponentNamesRegex;
+    
     private ResponseTimeLogParser logParser;
 
     @Override
@@ -109,7 +116,7 @@ public class ConvergedSipWebApplicationContextComponent extends ManagedComponent
         }
 
     }
-
+    
     @Override
     public void getValues(MeasurementReport report, Set<MeasurementScheduleRequest> requests)
             throws Exception

@@ -71,7 +71,7 @@ public abstract class AbstractManagedDeploymentDiscoveryComponent implements Res
     private final Log log = LogFactory.getLog(this.getClass());
 
     public Set<DiscoveredResourceDetails> discoverResources(
-            ResourceDiscoveryContext<ProfileServiceComponent> discoveryContext)
+            ResourceDiscoveryContext<ProfileServiceComponent> discoveryContext) throws Exception
     {
         Set<DiscoveredResourceDetails> discoveredResources = new HashSet<DiscoveredResourceDetails>();
         ResourceType resourceType = discoveryContext.getResourceType();
@@ -145,7 +145,7 @@ public abstract class AbstractManagedDeploymentDiscoveryComponent implements Res
 
     protected abstract boolean accept(ManagedDeployment managedDeployment);
 
-    private static String getResourceName(String fullPath)
+    public static String getResourceName(String fullPath)
     {
         int lastSlashIndex = fullPath.lastIndexOf("/");
         return fullPath.substring(lastSlashIndex + 1);
